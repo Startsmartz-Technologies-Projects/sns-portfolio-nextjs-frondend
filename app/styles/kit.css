@@ -91,7 +91,7 @@ img { max-width: 100%; display: block; }
 .site-header { background: #fff; box-shadow: var(--shadow-sm); position: sticky; top: 0; z-index: 30; }
 .header-row { display: flex; align-items: center; gap: 18px; height: 74px; }
 .brand img { height: 46px; width: auto; }
-.nav-desktop { display: flex; align-items: center; gap: 2px; margin-left: 12px; flex: 1; }
+.nav-desktop { display: flex; align-items: center; gap: 2px; flex: 1; justify-content: center; }
 .nav-item { position: relative; }
 .nav-link {
   display: inline-flex; align-items: center; gap: 4px;
@@ -104,11 +104,17 @@ img { max-width: 100%; display: block; }
 .nav-link.active { color: var(--navy-700); position: relative; }
 .nav-link.active::after { content: ""; position: absolute; left: 11px; right: 11px; bottom: -3px; height: 2px; background: var(--grad-arrow); border-radius: 2px; }
 .nav-drop {
-  position: absolute; top: 100%; left: 0; margin-top: 8px;
+  position: absolute; top: 100%; left: 0;
   background: #fff; border-radius: var(--r-lg); box-shadow: var(--shadow-lg);
   border: 1px solid var(--line-200);
   padding: 8px; min-width: 220px; display: flex; flex-direction: column;
   z-index: 40;
+}
+/* transparent bridge so the cursor stays inside .nav-item while
+   crossing the gap between the button and the dropdown */
+.nav-drop::before {
+  content: ""; position: absolute; left: 0; right: 0;
+  top: -8px; height: 8px;
 }
 .drop-link { padding: 8px 10px; border-radius: 6px; font: 500 13.5px var(--font-sans); color: var(--ink-700); text-decoration: none; }
 .drop-link:hover { background: var(--navy-50); color: var(--navy-700); }
