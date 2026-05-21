@@ -1,8 +1,8 @@
 "use client";
-import { HomeScreen } from "@/components/Home";
+import { TrainingGallery } from "@/components/TrainingGallery";
 import { useNavigate } from "@/components/useNavigate";
 
 export default function Page() {
   const navigate = useNavigate();
-  return <HomeScreen navigate={navigate} />;
+  return <TrainingGallery state="default" onNavigate={navigate} />;
 }

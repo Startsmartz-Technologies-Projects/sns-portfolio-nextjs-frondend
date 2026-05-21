@@ -1,0 +1,185 @@
+/* =============================================================
+   SNS Overseas — Design tokens (colours, type, spacing, motion)
+   Mirrors design-system-v1.spec.md §3–§6.
+   ============================================================= */
+
+/* Plus Jakarta Sans loads from Google Fonts — drop a self-host file into
+   fonts/ and add a matching @font-face block when you have it.
+   Sora ships locally as a variable font (weight axis 100–800).            */
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap");
+
+@font-face {
+  font-family: "Sora";
+  src: url("/fonts/Sora-VariableFont_wght.ttf") format("truetype-variations"),
+       url("/fonts/Sora-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* --- Navy / primary scale -------------------------------------- */
+  --navy-950: #061A30;
+  --navy-900: #0A2440;
+  --navy-800: #0B2C54; /* ★ Primary brand navy — logo "SNS" wordmark */
+  --navy-700: #103A6B;
+  --navy-600: #15498A;
+  --navy-500: #1565C0; /* Globe blue */
+  --navy-400: #4A8AD4;
+  --navy-300: #8FB6E2;
+  --navy-200: #C8DBF0;
+  --navy-100: #E8F0F9;
+  --navy-50:  #F4F8FC;
+
+  /* --- Cyan / teal / green accents ------------------------------ */
+  --green-700: #00A344;
+  --green-600: #00C853;
+  --green-500: #00E676; /* arrow start */
+  --cyan-400:  #00BCD4; /* arrow end */
+  --cyan-500:  #00ACC1; /* globe mid */
+  --cyan-600:  #008CA8; /* eyebrows, links on light */
+  --teal-300:  #4DB6AC; /* globe end */
+  --cyan-100:  #D6F3F5;
+  --cyan-50:   #ECFAFB;
+
+  /* --- Gold (verification spark only) --------------------------- */
+  --gold-500: #FFB300;
+  --gold-400: #FFC53D;
+  --gold-100: #FFF3D1;
+
+  /* --- Semantic ------------------------------------------------- */
+  --success: #0E9F5B;
+  --error:   #D92D20;
+  --warning: #F59E0B;
+  --info:    #1565C0;
+
+  /* --- Neutral / ink ------------------------------------------- */
+  --ink-900: #0F1B2A; /* primary text */
+  --ink-700: #33424F; /* secondary text */
+  --ink-500: #5C6B78; /* muted, captions */
+  --ink-400: #8493A0; /* placeholders */
+  --line-200: #E2E8EE;
+  --line-100: #EDF1F5;
+  --surface:   #FFFFFF;
+  --surface-2: #F5F8FB;
+  --surface-3: #ECF2F7;
+
+  /* --- Foreground / background semantics (for prototypes) ------ */
+  --fg1: var(--ink-900);
+  --fg2: var(--ink-700);
+  --fg3: var(--ink-500);
+  --fg-onDark: #FFFFFF;
+  --fg-onDark-2: var(--navy-200);
+  --bg: var(--surface);
+  --bg-alt: var(--surface-2);
+  --bg-alt-2: var(--surface-3);
+  --border: var(--line-200);
+  --border-faint: var(--line-100);
+
+  /* --- Gradients ------------------------------------------------ */
+  --grad-arrow: linear-gradient(118deg, #00E676 0%, #00BCD4 100%);
+  --grad-globe: linear-gradient(135deg, #1565C0 0%, #00ACC1 56%, #4DB6AC 100%);
+  --grad-navy:  linear-gradient(158deg, #0B2C54 0%, #061A30 100%);
+  --grad-hero:  linear-gradient(150deg, #0B2C54 0%, #0A2440 55%, #061A30 100%);
+
+  /* --- Type families ------------------------------------------- */
+  --font-display: "Sora", system-ui, sans-serif;
+  --font-sans:    "Plus Jakarta Sans", system-ui, sans-serif;
+
+  /* --- Type scale ---------------------------------------------- */
+  --display-xl: 800 48px/52px var(--font-display);
+  --display-l:  800 38px/42px var(--font-display);
+  --h1:         700 30px/36px var(--font-display);
+  --h2:         700 24px/30px var(--font-display);
+  --h3:         600 19px/26px var(--font-display);
+  --h4:         600 16px/22px var(--font-display);
+  --body-l:     400 18px/30px var(--font-sans);
+  --body-m:     400 16px/26px var(--font-sans);
+  --body-s:     400 14px/21px var(--font-sans);
+  --eyebrow:    600 13px/16px var(--font-sans);
+
+  /* --- Spacing (4-px base) ------------------------------------- */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+
+  /* --- Radius -------------------------------------------------- */
+  --r-sm:  6px;
+  --r-md:  10px;
+  --r-lg:  16px;
+  --r-xl:  24px;
+  --r-pill: 999px;
+
+  /* --- Shadows (navy-tinted) ----------------------------------- */
+  --shadow-sm:  0 1px 2px rgba(11,44,84,.06), 0 1px 3px rgba(11,44,84,.08);
+  --shadow-md:  0 4px 12px rgba(11,44,84,.08), 0 2px 4px rgba(11,44,84,.06);
+  --shadow-lg:  0 14px 34px rgba(11,44,84,.13), 0 4px 10px rgba(11,44,84,.07);
+  --shadow-cta: 0 10px 24px rgba(0,188,212,.34);
+
+  /* --- Motion -------------------------------------------------- */
+  --ease-out: cubic-bezier(.2,.7,.2,1);
+  --dur-fast: 120ms;
+  --dur:      180ms;
+
+  /* --- Layout -------------------------------------------------- */
+  --container: 1200px;
+  --tap-min:   44px;
+}
+
+/* =============================================================
+   Base typography mapping
+   ============================================================= */
+
+body {
+  font: var(--body-m);
+  color: var(--ink-900);
+  background: var(--surface);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, .h1 { font: var(--h1); color: var(--navy-800); letter-spacing: -.01em; margin: 0; }
+h2, .h2 { font: var(--h2); color: var(--navy-800); letter-spacing: -.01em; margin: 0; }
+h3, .h3 { font: var(--h3); color: var(--navy-800); margin: 0; }
+h4, .h4 { font: var(--h4); color: var(--navy-800); margin: 0; }
+
+.display-xl { font: var(--display-xl); letter-spacing: -.02em; color: var(--navy-800); }
+.display-l  { font: var(--display-l);  letter-spacing: -.02em; color: var(--navy-800); }
+
+.body-l   { font: var(--body-l); color: var(--ink-900); }
+.body-m   { font: var(--body-m); color: var(--ink-900); }
+.body-s   { font: var(--body-s); color: var(--ink-700); }
+.caption  { font: var(--body-s); color: var(--ink-500); }
+.eyebrow  {
+  font: var(--eyebrow);
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--cyan-600);
+}
+
+p { margin: 0; max-width: 70ch; text-wrap: pretty; }
+a { color: var(--cyan-600); text-decoration: none; }
+a:hover { color: var(--navy-700); }
+
+::selection { background: var(--cyan-100); color: var(--navy-900); }
+
+@media (max-width: 640px) {
+  .display-xl { font-size: 32px; line-height: 1.1; }
+  .display-l  { font-size: 28px; line-height: 1.15; }
+  h1, .h1     { font-size: 24px; line-height: 1.2; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 1ms !important;
+    transition-duration: 1ms !important;
+  }
+}
