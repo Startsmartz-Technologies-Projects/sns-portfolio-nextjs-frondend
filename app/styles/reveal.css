@@ -1,0 +1,43 @@
+/* =============================================================
+   SNS Overseas — Scroll reveal (fade + slide up)
+   Applied site-wide and automatically by the <AutoReveal> client
+   component mounted in app/layout.tsx. It tags every <section>
+   (and the staggered children inside it) with .reveal-item, then
+   adds .is-visible when the element scrolls into view.
+
+   The <Reveal> component (components/Reveal.jsx) uses the same
+   classes for hand-placed reveals (currently the Home page).
+   ============================================================= */
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-item {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+    /* hint the compositor; the browser clears this after the transition */
+    will-change: opacity, transform;
+  }
+
+  .reveal-item.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Reduced-motion or no JS: content is simply visible, no movement. */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-item {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* The closing-CTA button row staggers its buttons individually, so each
+   button gets a per-child wrapper <div>. Keep those wrappers shrink-to-fit
+   so the buttons sit side by side instead of stacking full-width. */
+.contact-band-ctas > .reveal-item {
+  display: inline-flex;
+}

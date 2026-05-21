@@ -9,6 +9,10 @@ import { ProcessSteps } from "./ProcessSteps";
    Order: Hero · Trust strip · Services (3) · Sectors (3) ·
           Training band · Countries · Employer value · Clients ·
           Process · Closing CTA · (Footer + FAB live in App shell)
+
+   Scroll reveal (fade + slide-up) is applied site-wide and
+   automatically by <AutoReveal> in app/layout.tsx — no per-section
+   markup is needed here. See app/styles/reveal.css.
    ============================================================= */
 
 /* ----------------------------------------------------------------

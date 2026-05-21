@@ -19,6 +19,27 @@ function UtilityBar() {
   );
 }
 
+/* Maps a route name to the dropdown child label that should show as current. */
+const NAV_ACTIVE_CHILD = {
+  company: "Company Overview",
+  why: "Why Choose Us",
+  md: "Managing Director's Message",
+  team: "Leadership & Team",
+  "about-bangladesh": "About Bangladesh",
+  services: "Services",
+  "worker-categories": "Worker Categories",
+  "training-testing-center": "Training & Testing Center",
+  "medical-report": "Medical Report",
+  clients: "Clients",
+  credentials: "Credentials & Documentation",
+  "worker-registration": "Worker Registration",
+  apply: "Worker Registration",
+  "agent-registration": "Agent Registration",
+  "demand-submission": "Demand Submission",
+  "office-gallery": "Office Gallery",
+  "training-gallery": "Training & Testing Gallery",
+};
+
 function NavItem({ label, children, active, activeChild, onChildClick, onClick }) {
   const [open, setOpen] = useState(false);
   if (!children) {
@@ -67,63 +88,55 @@ function Header({ onNavigate, route }) {
           </a>
           <nav className="nav-desktop">
             <NavItem label="About"
-              active={route === "company" || route === "about" || route === "why" || route === "team" || route === "md" || route === "about-bangladesh"}
-              activeChild={
-                route === "company" ? "Company Overview"
-                  : route === "why" ? "Why Choose Us"
-                    : route === "team" ? "Leadership & Team"
-                      : route === "md" ? "MD's Message"
-                        : route === "about-bangladesh" ? "About Bangladesh"
-                          : null
-              }
-              onChildClick={(it) => {
-                if (it.label === "Company Overview") onNavigate && onNavigate("company");
-                if (it.label === "Why Choose Us") onNavigate && onNavigate("why");
-                if (it.label === "Leadership & Team") onNavigate && onNavigate("team");
-                if (it.label === "MD's Message") onNavigate && onNavigate("md");
-                if (it.label === "About Bangladesh") onNavigate && onNavigate("about-bangladesh");
-              }}
-              children={["Company Overview", "MD's Message", "Leadership & Team", "Why Choose Us", "About Bangladesh"]} />
-            <NavItem label="Services" active={route === "services"} onClick={() => onNavigate && onNavigate("services")} />
-            <NavItem label="Worker Categories" active={route === "worker-categories"} onClick={() => onNavigate && onNavigate("worker-categories")} />
-            <NavItem label="Training Center" active={route === "training-testing-center"} onClick={() => onNavigate && onNavigate("training-testing-center")} />
-            {/* <NavItem label="Clients" active={route === "clients"} onClick={() => onNavigate && onNavigate("clients")} /> */}
-            <NavItem label="Credentials" active={route === "credentials"} onClick={() => onNavigate && onNavigate("credentials")} />
-            <NavItem label="Medical Report" active={route === "medical-report"} onClick={() => onNavigate && onNavigate("medical-report")} />
-            {/* <NavItem label="Registration"
-              active={route === "apply" || route === "worker-registration" || route === "agent-registration" || route === "demand-submission"}
-              activeChild={
-                route === "worker-registration" ? "Apply as a Worker"
-                  : route === "apply" ? "Apply as a Worker"
-                    : route === "demand-submission" ? "Hire Workers"
-                      : route === "agent-registration" ? "Become an Agent"
-                        : null
-              }
-              onChildClick={(it) => {
-                if (it.label === "Apply as a Worker") onNavigate && onNavigate("worker-registration");
-                if (it.label === "Hire Workers") onNavigate && onNavigate("demand-submission");
-                if (it.label === "Become an Agent") onNavigate && onNavigate("agent-registration");
-              }}
-              children={["Apply as a Worker", "Hire Workers", "Become an Agent"]} /> */}
+              active={["company", "about", "why", "team", "md", "about-bangladesh"].includes(route)}
+              activeChild={NAV_ACTIVE_CHILD[route] || null}
+              onChildClick={(it) => onNavigate && onNavigate(it.route)}
+              children={[
+                { label: "Company Overview", route: "company" },
+                { label: "Why Choose Us", route: "why" },
+                { label: "Managing Director's Message", route: "md" },
+                { label: "Leadership & Team", route: "team" },
+                { label: "About Bangladesh", route: "about-bangladesh" },
+              ]} />
+            <NavItem label="Services"
+              active={["services", "worker-categories", "training-testing-center", "medical-report"].includes(route)}
+              activeChild={NAV_ACTIVE_CHILD[route] || null}
+              onChildClick={(it) => onNavigate && onNavigate(it.route)}
+              children={[
+                { label: "Services", route: "services" },
+                { label: "Worker Categories", route: "worker-categories" },
+                { label: "Training & Testing Center", route: "training-testing-center" },
+                { label: "Medical Report", route: "medical-report" },
+              ]} />
+            <NavItem label="Credentials"
+              active={["clients", "credentials"].includes(route)}
+              activeChild={NAV_ACTIVE_CHILD[route] || null}
+              onChildClick={(it) => onNavigate && onNavigate(it.route)}
+              children={[
+                { label: "Clients", route: "clients" },
+                { label: "Credentials & Documentation", route: "credentials" },
+              ]} />
+            <NavItem label="Registration"
+              active={["worker-registration", "apply", "agent-registration", "demand-submission"].includes(route)}
+              activeChild={NAV_ACTIVE_CHILD[route] || null}
+              onChildClick={(it) => onNavigate && onNavigate(it.route)}
+              children={[
+                { label: "Worker Registration", route: "worker-registration" },
+                { label: "Agent Registration", route: "agent-registration" },
+                { label: "Demand Submission", route: "demand-submission" },
+              ]} />
             <NavItem label="Gallery"
-              active={route === "office-gallery" || route === "training-gallery"}
-              activeChild={
-                route === "office-gallery" ? "Office Gallery"
-                  : route === "training-gallery" ? "Training & Testing Gallery"
-                    : null
-              }
-              onChildClick={(it) => {
-                if (it.label === "Office Gallery") onNavigate && onNavigate("office-gallery");
-                if (it.label === "Training & Testing Gallery") onNavigate && onNavigate("training-gallery");
-              }}
-              children={["Office Gallery", "Training & Testing Gallery"]} />
-            {/* <NavItem label="Contact" active={route === "contact"} onClick={() => onNavigate && onNavigate("contact")} /> */}
-            <div className="header-cta">
-
-            <Button variant="apply" size="small" onClick={go("contact")}>contact</Button>
-            </div>
-
+              active={["office-gallery", "training-gallery"].includes(route)}
+              activeChild={NAV_ACTIVE_CHILD[route] || null}
+              onChildClick={(it) => onNavigate && onNavigate(it.route)}
+              children={[
+                { label: "Office Gallery", route: "office-gallery" },
+                { label: "Training & Testing Gallery", route: "training-gallery" },
+              ]} />
           </nav>
+          <div className="header-cta">
+            <Button variant="apply" size="small" onClick={go("contact")}>Contact</Button>
+          </div>
           {/* <div className="header-cta">
             <Button variant="outline" size="small" onClick={go("demand-submission")}>Hire Workers</Button>
             <Button variant="apply" size="small" onClick={go("apply")}>Apply Now</Button>
@@ -138,20 +151,29 @@ function Header({ onNavigate, route }) {
             <div className="nav-mobile-group">
               <a className="nav-link nav-group-head">About</a>
               <a className={"nav-link nav-sub" + (route === "company" ? " current" : "")} onClick={go("company")}>Company Overview</a>
-              <a className={"nav-link nav-sub" + (route === "md" ? " current" : "")} onClick={go("md")}>MD's Message</a>
-              <a className={"nav-link nav-sub" + (route === "team" ? " current" : "")} onClick={go("team")}>Leadership & Team</a>
               <a className={"nav-link nav-sub" + (route === "why" ? " current" : "")} onClick={go("why")}>Why Choose Us</a>
+              <a className={"nav-link nav-sub" + (route === "md" ? " current" : "")} onClick={go("md")}>Managing Director&apos;s Message</a>
+              <a className={"nav-link nav-sub" + (route === "team" ? " current" : "")} onClick={go("team")}>Leadership & Team</a>
               <a className={"nav-link nav-sub" + (route === "about-bangladesh" ? " current" : "")} onClick={go("about-bangladesh")}>About Bangladesh</a>
             </div>
-            <a className={"nav-link" + (route === "services" ? " current" : "")} onClick={go("services")}>Services</a>
-            <a className={"nav-link" + (route === "worker-categories" ? " current" : "")} onClick={go("worker-categories")}>Worker Categories</a>
-            <a className={"nav-link" + (route === "training-testing-center" ? " current" : "")} onClick={go("training-testing-center")}>Training & Testing Center</a>
-            <a className={"nav-link" + (route === "clients" ? " current" : "")} onClick={go("clients")}>Clients</a>
-            <a className={"nav-link" + (route === "credentials" ? " current" : "")} onClick={go("credentials")}>Credentials</a>
-            <a className={"nav-link" + (route === "medical-report" ? " current" : "")} onClick={go("medical-report")}>Medical Report</a>
-            <a className={"nav-link" + (route === "worker-registration" || route === "apply" ? " current" : "")} onClick={go("worker-registration")}>Apply as a Worker</a>
-            <a className={"nav-link" + (route === "demand-submission" ? " current" : "")} onClick={go("demand-submission")}>Hire Workers</a>
-            <a className={"nav-link" + (route === "agent-registration" ? " current" : "")} onClick={go("agent-registration")}>Become an Agent</a>
+            <div className="nav-mobile-group">
+              <a className="nav-link nav-group-head">Services</a>
+              <a className={"nav-link nav-sub" + (route === "services" ? " current" : "")} onClick={go("services")}>Services</a>
+              <a className={"nav-link nav-sub" + (route === "worker-categories" ? " current" : "")} onClick={go("worker-categories")}>Worker Categories</a>
+              <a className={"nav-link nav-sub" + (route === "training-testing-center" ? " current" : "")} onClick={go("training-testing-center")}>Training & Testing Center</a>
+              <a className={"nav-link nav-sub" + (route === "medical-report" ? " current" : "")} onClick={go("medical-report")}>Medical Report</a>
+            </div>
+            <div className="nav-mobile-group">
+              <a className="nav-link nav-group-head">Credentials</a>
+              <a className={"nav-link nav-sub" + (route === "clients" ? " current" : "")} onClick={go("clients")}>Clients</a>
+              <a className={"nav-link nav-sub" + (route === "credentials" ? " current" : "")} onClick={go("credentials")}>Credentials & Documentation</a>
+            </div>
+            <div className="nav-mobile-group">
+              <a className="nav-link nav-group-head">Registration</a>
+              <a className={"nav-link nav-sub" + (route === "worker-registration" || route === "apply" ? " current" : "")} onClick={go("worker-registration")}>Worker Registration</a>
+              <a className={"nav-link nav-sub" + (route === "agent-registration" ? " current" : "")} onClick={go("agent-registration")}>Agent Registration</a>
+              <a className={"nav-link nav-sub" + (route === "demand-submission" ? " current" : "")} onClick={go("demand-submission")}>Demand Submission</a>
+            </div>
             <div className="nav-mobile-group">
               <a className="nav-link nav-group-head">Gallery</a>
               <a className={"nav-link nav-sub" + (route === "office-gallery" ? " current" : "")} onClick={go("office-gallery")}>Office Gallery</a>
