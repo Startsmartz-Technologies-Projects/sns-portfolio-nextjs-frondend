@@ -59,7 +59,7 @@ function Header({ onNavigate, route }) {
 
   return (
     <>
-      <UtilityBar />
+      {/* <UtilityBar /> */}
       <header className="site-header">
         <div className="container header-row">
           <a href="#" className="brand" onClick={go("home")}>
