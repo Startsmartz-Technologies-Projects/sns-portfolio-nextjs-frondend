@@ -1,6 +1,7 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Icon, Button, Field, Input, Textarea, Alert, Eyebrow } from "./Primitives";
+import { validateForm, focusFirstError, required, email, phone, nid } from "./formValidation";
 
 /* =============================================================
    Page 13 of 18 — Agent Registration  ·  SRS §5.4
@@ -112,21 +113,59 @@ function ArSuccessBlock({ onReset, onHome }) {
    the page frozen in any of: default | submitting | success |
    error.
    ============================================================= */
+/* Per-field validation rules for the agent form. */
+const AR_SCHEMA = {
+  org_name:  [required("Organisation / agency name")],
+  full_name: [required("Your name")],
+  email:     [required("Email"), email()],
+  phone:     [required("Phone / WhatsApp"), phone()],
+  nid_no:    [required("NID number"), nid()],
+  address:   [required("Address")],
+};
+
 function AgentRegistrationForm({ state = "default", onNavigate }) {
   const [consent, setConsent]         = useState(state !== "default");
   const [showInfo, setShowInfo]       = useState(true);
   const [submitState, setSubmitState] = useState(state);
+  const [values, setValues] = useState({
+    org_name: "", full_name: "", email: "", phone: "", nid_no: "", address: "", area: "",
+  });
+  const [errors, setErrors] = useState({});
+  const [consentError, setConsentError] = useState("");
+  const formRef = useRef(null);
+
+  /* Mirror prop -> local override: adjust state during render when the
+     prop changes, instead of via an effect (avoids a cascading render). */
+  const [prevState, setPrevState] = useState(state);
+  if (state !== prevState) {
+    setPrevState(state);
+    setSubmitState(state);
+  }
 
   const isSubmitting = submitState === "submitting";
   const isSuccess    = submitState === "success";
   const isError      = submitState === "error";
 
-  /* Mirror prop -> local override on mount + change. */
-  useEffect(() => { setSubmitState(state); }, [state]);
+  const setField = (name) => (e) => {
+    const v = e.target.value;
+    setValues(prev => ({ ...prev, [name]: v }));
+    if (errors[name]) setErrors(prev => ({ ...prev, [name]: "" }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!consent || isSubmitting) return;
+    if (isSubmitting) return;
+
+    const fieldErrors = validateForm(values, AR_SCHEMA);
+    const consentMsg = consent ? "" : "Please agree to be contacted before submitting.";
+    setErrors(fieldErrors);
+    setConsentError(consentMsg);
+
+    if (Object.keys(fieldErrors).length || consentMsg) {
+      focusFirstError(fieldErrors, formRef.current);
+      return;
+    }
+
     setSubmitState("submitting");
     setTimeout(() => setSubmitState("success"), 1200);
   };
@@ -165,54 +204,54 @@ function AgentRegistrationForm({ state = "default", onNavigate }) {
         </div>
       ) : null}
 
-      <form className="wr-form ar-form" onSubmit={handleSubmit} noValidate aria-busy={isSubmitting}>
+      <form className="wr-form ar-form" onSubmit={handleSubmit} noValidate aria-busy={isSubmitting} ref={formRef}>
 
         {/* 1. Organisation / agency name */}
         <Field label="Organisation / agency name" required id="ar-org"
+          error={errors.org_name}
           help="If you operate as an individual, use your own name.">
           <Input id="ar-org" name="org_name" autoComplete="organization"
             placeholder="e.g. Sunrise Manpower"
-            defaultValue={isError ? "Sunrise Manpower Services" : ""}/>
+            value={values.org_name} onChange={setField("org_name")}
+            error={errors.org_name} aria-invalid={!!errors.org_name}/>
         </Field>
 
         {/* 2. Your name */}
-        <Field label="Your name" required id="ar-name">
+        <Field label="Your name" required id="ar-name" error={errors.full_name}>
           <Input id="ar-name" name="full_name" autoComplete="name"
             placeholder="As shown on your NID"
-            defaultValue={isError ? "Abdul Karim" : ""}/>
+            value={values.full_name} onChange={setField("full_name")}
+            error={errors.full_name} aria-invalid={!!errors.full_name}/>
         </Field>
 
         {/* 3. Email */}
-        <Field label="Email" required id="ar-email">
+        <Field label="Email" required id="ar-email" error={errors.email}>
           <Input id="ar-email" name="email" type="email" autoComplete="email"
             placeholder="you@example.com"
-            defaultValue={isError ? "abdul@example.com" : ""}/>
+            value={values.email} onChange={setField("email")}
+            error={errors.email} aria-invalid={!!errors.email}/>
         </Field>
 
-        {/* 4. Phone / WhatsApp — error state surfaces here */}
+        {/* 4. Phone / WhatsApp */}
         <Field label="Phone / WhatsApp" required id="ar-phone"
-          help={isError ? undefined : "We will contact you on this number."}>
+          error={errors.phone}
+          help="We will contact you on this number.">
           <Input id="ar-phone" name="phone" type="tel" autoComplete="tel"
             inputMode="tel"
             placeholder="+880 17…"
-            defaultValue={isError ? "+880 17" : ""}
-            error={isError}
-            aria-invalid={isError || undefined}
-            aria-describedby={isError ? "ar-phone-err" : undefined}/>
-          {isError ? (
-            <span id="ar-phone-err" className="err" role="alert">
-              <Icon name="alert" size={14}/>
-              Please enter a complete mobile number (11 digits after +880).
-            </span>
-          ) : null}
+            value={values.phone} onChange={setField("phone")}
+            error={errors.phone}
+            aria-invalid={!!errors.phone}/>
         </Field>
 
         {/* 5. NID number */}
-        <Field label="NID number" required id="ar-nid"
-          help="Bangladesh National ID number (10 or 17 digits).">
+        <Field label="NID number" required id="ar-nid" error={errors.nid_no}
+          help="Bangladesh National ID number (10, 13 or 17 digits).">
           <Input id="ar-nid" name="nid_no" inputMode="numeric" pattern="[0-9]*"
             autoComplete="off"
-            placeholder="e.g. 1234567890"/>
+            placeholder="e.g. 1234567890"
+            value={values.nid_no} onChange={setField("nid_no")}
+            error={errors.nid_no} aria-invalid={!!errors.nid_no}/>
         </Field>
 
         {/* 6. NID upload */}
@@ -222,18 +261,21 @@ function AgentRegistrationForm({ state = "default", onNavigate }) {
         </Field>
 
         {/* 7. Address — textarea */}
-        <Field label="Address" required id="ar-addr"
+        <Field label="Address" required id="ar-addr" error={errors.address}
           help="Your residential or office address in Bangladesh.">
           <Textarea id="ar-addr" name="address" autoComplete="street-address"
             rows={3}
-            placeholder="House / road / village, upazila, district"/>
+            placeholder="House / road / village, upazila, district"
+            value={values.address} onChange={setField("address")}
+            error={errors.address} aria-invalid={!!errors.address}/>
         </Field>
 
         {/* 8. Area / region of operation — optional */}
         <Field label="Area / region of operation" id="ar-area"
           help="For example, 'Comilla district' or 'Sylhet division'.">
           <Input id="ar-area" name="area"
-            placeholder="e.g. Comilla district"/>
+            placeholder="e.g. Comilla district"
+            value={values.area} onChange={setField("area")}/>
         </Field>
 
         {/* Honeypot (FR-49) — visually hidden, off-screen, no autocomplete */}
@@ -245,15 +287,19 @@ function AgentRegistrationForm({ state = "default", onNavigate }) {
 
         {/* 9. Consent */}
         <label className="consent">
-          <input type="checkbox" checked={consent} onChange={e => setConsent(e.target.checked)} />
+          <input type="checkbox" checked={consent}
+            onChange={e => { setConsent(e.target.checked); if (e.target.checked) setConsentError(""); }} />
           <span className="consent-tick" aria-hidden="true">
             <Icon name="check" size={12} color="var(--navy-900)" strokeWidth={3}/>
           </span>
           <span className="consent-body">
             I agree to be contacted by SNS Overseas regarding this application,
-            and I have read the <a href="#">Privacy Notice</a>.
+            and I have read the <a href="#" onClick={(e) => e.preventDefault()}>Privacy Notice</a>.
           </span>
         </label>
+        {consentError ? (
+          <span className="err" role="alert"><Icon name="alert" size={14}/> {consentError}</span>
+        ) : null}
 
         {/* 10. Reassurance line (verbatim from canonical facts) */}
         <p className="wr-reassurance">
@@ -264,7 +310,7 @@ function AgentRegistrationForm({ state = "default", onNavigate }) {
 
         {/* 11. Submit */}
         <Button variant="apply" size="large" block
-          disabled={!consent || isSubmitting}
+          disabled={isSubmitting}
           aria-live="polite">
           {isSubmitting ? (
             <><span className="wr-spinner" aria-hidden="true"/> Sending…</>

@@ -172,13 +172,18 @@ function WorkerRegistrationForm({ state = "default", onNavigate }) {
   const [showInfo, setShowInfo]     = useState(true);
   const [submitState, setSubmitState] = useState(state); // local override
 
+  /* Sync state changes from prop (the canvas can mount each artboard
+     with a different `state`). Adjusted during render to avoid a
+     cascading render from an effect. */
+  const [prevState, setPrevState] = useState(state);
+  if (state !== prevState) {
+    setPrevState(state);
+    setSubmitState(state);
+  }
+
   const isSubmitting = submitState === "submitting";
   const isSuccess    = submitState === "success";
   const isError      = submitState === "error";
-
-  /* Sync state changes from prop (the canvas can mount each artboard
-     with a different `state`). */
-  useEffect(() => { setSubmitState(state); }, [state]);
 
   const toggleCountry = (id) =>
     setCountries(c => c.includes(id) ? c.filter(x => x !== id) : [...c, id]);
@@ -344,7 +349,7 @@ function WorkerRegistrationForm({ state = "default", onNavigate }) {
           </span>
           <span className="consent-body">
             I agree to be contacted by SNS Overseas regarding this application,
-            and I have read the <a href="#">Privacy Notice</a>.
+            and I have read the <a href="#" onClick={(e) => e.preventDefault()}>Privacy Notice</a>.
           </span>
         </label>
 
@@ -432,7 +437,7 @@ function WorkerRegistration({ state = "default", onNavigate }) {
               </p>
             </div>
             <a className="wr-ghost-link strong" href="#agent-registration"
-              onClick={(e) => e.preventDefault()}>
+              onClick={(e) => { e.preventDefault(); onNavigate && onNavigate("agent-registration"); }}>
               Become an agent <WrIcon name="wr-arrow-r" size={14}/>
             </a>
           </div>

@@ -434,11 +434,11 @@ function TrainingGallery({ state = "default", onNavigate }) {
           <aside className="panel-card og-privacy tg-privacy" aria-labelledby="tg-privacy-title">
             <div className="og-privacy-body">
               <Eyebrow>Photos</Eyebrow>
-              <h3 id="tg-privacy-title">What's in these photos</h3>
+              <h3 id="tg-privacy-title">What&apos;s in these photos</h3>
               <p>
                 These photos show our training and trade-testing centre in
                 operation. Workers and trainers appear with consent. We do
-                not publish anyone's identification or personal documents.
+                not publish anyone&apos;s identification or personal documents.
               </p>
             </div>
             <div className="og-privacy-actions">
@@ -463,7 +463,7 @@ function TrainingGallery({ state = "default", onNavigate }) {
               Hire workers trained and tested here
             </h2>
             <p style={{color:"var(--navy-200)", marginTop:8, maxWidth:"56ch"}}>
-              Submit a demand and we'll match workers from the cohorts you've
+              Submit a demand and we&apos;ll match workers from the cohorts you&apos;ve
               seen here.
             </p>
           </div>

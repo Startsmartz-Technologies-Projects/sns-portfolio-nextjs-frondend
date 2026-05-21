@@ -1,5 +1,6 @@
 "use client";
 import { Icon, Button, Eyebrow, SectionHead } from "./Primitives";
+import { MISSION_IMAGE, VISION_IMAGE } from "./mediaAssets";
 
 /* ===============================================================
    Page 2 of 18 — Company Overview
@@ -12,8 +13,10 @@ function Slot({ value, placeholder, lines = 1 }) {
   return <span className="copy-placeholder" data-lines={lines}>{placeholder}</span>;
 }
 
-function CompanyOverview({ tweaks = {} }) {
+function CompanyOverview({ tweaks = {}, onNavigate }) {
   const t = tweaks || {};
+  const go = (r) => () => onNavigate && onNavigate(r);
+  const goLink = (r) => (e) => { e.preventDefault(); onNavigate && onNavigate(r); };
   return (
     <>
       {/* 2 — Compact page hero */}
@@ -106,7 +109,7 @@ function CompanyOverview({ tweaks = {} }) {
             />
           </div>
           <div className="cred-foot">
-            <a href="#" className="btn btn-ghost btn-small">
+            <a href="#" className="btn btn-ghost btn-small" onClick={goLink("credentials")}>
               View credentials & documents <Icon name="arrow-up-right" size={14}/>
             </a>
           </div>
@@ -120,6 +123,13 @@ function CompanyOverview({ tweaks = {} }) {
             <ArrowMotif />
             <Eyebrow>Our mission</Eyebrow>
             <h2 className="h2">Mission</h2>
+            <img
+              className="mv-image"
+              src={MISSION_IMAGE}
+              alt="Our mission"
+              loading="lazy"
+              decoding="async"
+            />
           </div>
           <blockquote className="mv-quote mv-quote-l">
             To ethically recruit and place skilled Bangladeshi workers in
@@ -137,11 +147,18 @@ function CompanyOverview({ tweaks = {} }) {
             <ArrowMotif />
             <Eyebrow>Our vision</Eyebrow>
             <h2 className="h2">Vision</h2>
+            <img
+              className="mv-image"
+              src={VISION_IMAGE}
+              alt="Our vision"
+              loading="lazy"
+              decoding="async"
+            />
           </div>
           <blockquote className="mv-quote mv-quote-r">
             To become a leading and most trusted overseas recruitment agency
             in Bangladesh, recognised for our integrity, compliance and
-            contribution to the nation's workforce development and remittance
+            contribution to the nation&apos;s workforce development and remittance
             economy.
           </blockquote>
         </div>
@@ -159,8 +176,8 @@ function CompanyOverview({ tweaks = {} }) {
             </p>
           </div>
           <div className="contact-band-ctas">
-            <Button variant="apply" size="large">Apply Now</Button>
-            <Button variant="outline-dark" size="large">Hire Workers</Button>
+            <Button variant="apply" size="large" onClick={go("worker-registration")}>Apply Now</Button>
+            <Button variant="outline-dark" size="large" onClick={go("demand-submission")}>Hire Workers</Button>
           </div>
         </div>
       </section>

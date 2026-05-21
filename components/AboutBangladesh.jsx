@@ -80,7 +80,9 @@ function AbFigurePlaceholder({ children }) {
   return <span className="fact-placeholder" title="Client to supply">{children}</span>;
 }
 
-function AboutBangladesh() {
+function AboutBangladesh({ onNavigate }) {
+  const go = (r) => () => onNavigate && onNavigate(r);
+  const goLink = (r) => (e) => { e.preventDefault(); onNavigate && onNavigate(r); };
   return (
     <>
       {/* 2 — Compact page hero (~48 / 56 padding) */}
@@ -213,7 +215,7 @@ function AboutBangladesh() {
           </div>
 
           <div className="sec-foot">
-            <a className="link-ghost" href="#/training-testing-center">
+            <a className="link-ghost" href="#/training-testing-center" onClick={goLink("training-testing-center")}>
               See our own training &amp; testing centre{" "}
               <Icon size={14}>{AbGlyph.arrowRight}</Icon>
             </a>
@@ -297,10 +299,10 @@ function AboutBangladesh() {
               </p>
             </div>
             <div className="ab-connector-actions">
-              <Button as="a" href="#/services" variant="outline" size="default">
+              <Button as="a" href="#/services" variant="outline" size="default" onClick={goLink("services")}>
                 See our services <Icon size={16}>{AbGlyph.arrowRight}</Icon>
               </Button>
-              <a className="link-ghost" href="#/clients">
+              <a className="link-ghost" href="#/clients" onClick={goLink("clients")}>
                 View our clients <Icon size={14}>{AbGlyph.arrowUpRight}</Icon>
               </a>
             </div>
@@ -322,8 +324,8 @@ function AboutBangladesh() {
             </p>
           </div>
           <div className="contact-band-ctas">
-            <Button variant="hire" size="large">Hire Workers</Button>
-            <Button variant="apply" size="large">Apply Now</Button>
+            <Button variant="hire" size="large" onClick={go("demand-submission")}>Hire Workers</Button>
+            <Button variant="apply" size="large" onClick={go("worker-registration")}>Apply Now</Button>
           </div>
         </div>
       </section>

@@ -198,7 +198,9 @@ function JumpStrip() {
 /* ================================================================
    Page composition
 ================================================================ */
-function Clients() {
+function Clients({ onNavigate }) {
+  const go = (r) => () => onNavigate && onNavigate(r);
+  const goLink = (r) => (e) => { e.preventDefault(); onNavigate && onNavigate(r); };
   return (
     <>
       {/* 2 — Compact page hero */}
@@ -285,10 +287,12 @@ function Clients() {
             </div>
             <div className="cl-connector-actions">
               <Button as="a" href="#/demand-submission" variant="hire" size="default"
+                onClick={goLink("demand-submission")}
                 aria-label="Submit a demand letter to SNS Overseas">
                 Submit a demand <Icon size={16}>{ClGlyph.arrowRight}</Icon>
               </Button>
               <a className="link-ghost" href="#/services"
+                onClick={goLink("services")}
                 aria-label="See the services we deliver">
                 See our services <Icon size={14}>{ClGlyph.arrowUpRight}</Icon>
               </a>
@@ -311,8 +315,8 @@ function Clients() {
             </p>
           </div>
           <div className="contact-band-ctas">
-            <Button variant="hire" size="large">Hire Workers</Button>
-            <Button variant="apply" size="large">Apply Now</Button>
+            <Button variant="hire" size="large" onClick={go("demand-submission")}>Hire Workers</Button>
+            <Button variant="apply" size="large" onClick={go("worker-registration")}>Apply Now</Button>
           </div>
         </div>
       </section>

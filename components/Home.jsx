@@ -2,6 +2,7 @@
 import { Icon, Button, Eyebrow, SectionHead } from "./Primitives";
 import { TrustStrip } from "./TrustStrip";
 import { ProcessSteps } from "./ProcessSteps";
+import { RESOURCE_IMAGES, HERO_VIDEO } from "./mediaAssets";
 
 /* =============================================================
    SNS Overseas — Home page composition
@@ -20,7 +21,18 @@ import { ProcessSteps } from "./ProcessSteps";
 ---------------------------------------------------------------- */
 function HomeHero({ onApply, onHire }) {
   return (
-    <section className="hero home-hero" data-screen-label="01 Home — Hero">
+    <section className="hero home-hero home-hero-video" data-screen-label="01 Home — Hero">
+      <video
+        className="hero-bg-video"
+        src={HERO_VIDEO}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        aria-hidden="true"
+      />
+      <div className="hero-bg-overlay" aria-hidden="true" />
       <div className="hero-arc" />
       <div className="container home-hero-grid">
         <div className="hero-copy">
@@ -47,12 +59,6 @@ function HomeHero({ onApply, onHire }) {
             <span><Icon name="building" size={14} color="#7fd9e3"/> Dhaka HQ · serving 6 countries</span>
           </div>
         </div>
-        <div className="hero-photo" aria-hidden="true">
-          <div className="hero-photo-inner">
-            <span className="facility-tag">Hero photo</span>
-            <span className="photo-note">Real workers / training centre<br/><em>preload WebP · only above-fold image</em></span>
-          </div>
-        </div>
       </div>
     </section>
   );
@@ -61,7 +67,7 @@ function HomeHero({ onApply, onHire }) {
 /* ----------------------------------------------------------------
    Section 4 — Services summary (FR-11)
 ---------------------------------------------------------------- */
-function HomeServicesPreview() {
+function HomeServicesPreview({ go }) {
   const items = [
     { icon: "users",      t: "Worker Selection & Recruitment", d: "Sourcing, vetting and matching candidates to your demand letter." },
     { icon: "graduation", t: "Skills Development Training",    d: "In-house training across construction, hospitality and more." },
@@ -85,7 +91,7 @@ function HomeServicesPreview() {
           ))}
         </div>
         <div className="sec-foot">
-          <a href="#" className="link-ghost">View all services <Icon name="arrow-up-right" size={14}/></a>
+          <a href="#" className="link-ghost" onClick={go && go("services")}>View all services <Icon name="arrow-up-right" size={14}/></a>
         </div>
       </div>
     </section>
@@ -96,13 +102,14 @@ function HomeServicesPreview() {
    Section 5 — Worker categories preview (FR-12)
    Sector card with photo header, navy overlay, sector name bottom-left.
 ---------------------------------------------------------------- */
-function HomeSectorsPreview() {
+function HomeSectorsPreview({ go }) {
   const sectors = [
     {
       name: "Construction",
       tag: "9 trades",
       desc: "Steel reinforcement, plastering, tiling, plumbing & six more named trades.",
       grad: "linear-gradient(135deg, #15498A 0%, #1565C0 50%, #00ACC1 100%)",
+      img: RESOURCE_IMAGES.construction,
       icon: "wrench",
     },
     {
@@ -110,6 +117,7 @@ function HomeSectorsPreview() {
       tag: "Sector",
       desc: "Cooks, chefs, kitchen helpers, waiters and food-service staff.",
       grad: "linear-gradient(135deg, #103A6B 0%, #008CA8 60%, #4DB6AC 100%)",
+      img: RESOURCE_IMAGES.hotel,
       icon: "package",
     },
     {
@@ -117,6 +125,7 @@ function HomeSectorsPreview() {
       tag: "Sector",
       desc: "Light, heavy, and equipment drivers for the Gulf states.",
       grad: "linear-gradient(135deg, #0B2C54 0%, #15498A 55%, #00ACC1 100%)",
+      img: RESOURCE_IMAGES.drivers,
       icon: "briefcase",
     },
   ];
@@ -133,6 +142,9 @@ function HomeSectorsPreview() {
           {sectors.map((s, i) => (
             <article className="sector-card" key={i}>
               <div className="sector-photo" style={{background: s.grad}}>
+                {s.img ? (
+                  <img className="sector-photo-img" src={s.img} alt="" loading="lazy" decoding="async"/>
+                ) : null}
                 <div className="sector-photo-stripes" />
                 <span className="sector-tag-pill">{s.tag}</span>
                 <Icon name={s.icon} size={42} color="rgba(255,255,255,.22)" className="sector-photo-ic"/>
@@ -140,13 +152,13 @@ function HomeSectorsPreview() {
               </div>
               <div className="sector-body">
                 <p>{s.desc}</p>
-                <a className="sector-link" href="#">View all trades <Icon name="chevron-right" size={14}/></a>
+                <a className="sector-link" href="#" onClick={go && go("worker-categories")}>View all trades <Icon name="chevron-right" size={14}/></a>
               </div>
             </article>
           ))}
         </div>
         <div className="sec-foot">
-          <a href="#" className="link-ghost">View all categories <Icon name="arrow-up-right" size={14}/></a>
+          <a href="#" className="link-ghost" onClick={go && go("worker-categories")}>View all categories <Icon name="arrow-up-right" size={14}/></a>
         </div>
       </div>
     </section>
@@ -156,7 +168,7 @@ function HomeSectorsPreview() {
 /* ----------------------------------------------------------------
    Section 6 — Training & Testing feature band (FR-13)
 ---------------------------------------------------------------- */
-function HomeTrainingBand() {
+function HomeTrainingBand({ go }) {
   return (
     <section className="feature-band home-feature-band" data-screen-label="01 Home — Training">
       <div className="hero-arc" />
@@ -176,7 +188,7 @@ function HomeTrainingBand() {
             <li>Certificates kept in worker profile</li>
           </ul>
           <div className="feature-band-ctas">
-            <Button variant="outline-dark" size="default">
+            <Button variant="outline-dark" size="default" onClick={go && go("training-testing-center")}>
               Visit the centre <Icon name="arrow-up-right" size={16}/>
             </Button>
           </div>
@@ -200,7 +212,7 @@ function HomeTrainingBand() {
    Section 7 — Countries we serve (FR-14)
    Six tiles in canonical order.
 ---------------------------------------------------------------- */
-function HomeCountries() {
+function HomeCountries({ go }) {
   const countries = [
     "Saudi Arabia", "UAE", "Kuwait", "Qatar", "Oman", "Malaysia",
   ];
@@ -214,7 +226,7 @@ function HomeCountries() {
         />
         <div className="country-grid">
           {countries.map((c, i) => (
-            <a className="country-tile" href="#" key={i}>
+            <a className="country-tile" href="#" key={i} onClick={go && go("worker-categories")}>
               <div className="country-icon">
                 <Icon name="map-pin" size={22} color="var(--navy-500)"/>
               </div>
@@ -231,7 +243,7 @@ function HomeCountries() {
    Section 8 — Employer value block (FR-15)
    Split panel · employer copy left, stat block right.
 ---------------------------------------------------------------- */
-function HomeEmployerBlock() {
+function HomeEmployerBlock({ go }) {
   return (
     <section className="section section-alt" data-screen-label="01 Home — Employers">
       <div className="container emp-grid">
@@ -251,7 +263,7 @@ function HomeEmployerBlock() {
             accountable partner from demand letter to arrival.
           </p>
           <div className="emp-actions">
-            <Button variant="hire" size="default">
+            <Button variant="hire" size="default" onClick={go && go("demand-submission")}>
               Submit a demand letter <Icon name="arrow-up-right" size={16}/>
             </Button>
           </div>
@@ -279,7 +291,7 @@ function HomeEmployerBlock() {
    Section 9 — Clients preview (FR-16)
    Placeholder name tiles — spec allows when logos not yet supplied.
 ---------------------------------------------------------------- */
-function HomeClients() {
+function HomeClients({ go }) {
   // A representative selection of real clients across the regions we serve;
   // the full list lives on the Clients page.
   const slots = [
@@ -312,7 +324,7 @@ function HomeClients() {
           ))}
         </div>
         <div className="sec-foot">
-          <a href="#" className="link-ghost">See all clients <Icon name="arrow-up-right" size={14}/></a>
+          <a href="#" className="link-ghost" onClick={go && go("clients")}>See all clients <Icon name="arrow-up-right" size={14}/></a>
         </div>
       </div>
     </section>
@@ -367,18 +379,20 @@ function HomeClosingCta({ onApply, onHire }) {
 ---------------------------------------------------------------- */
 function HomeScreen({ navigate }) {
   const go = (r) => () => navigate && navigate(r);
+  /* link variant — prevents the default "#" jump before navigating */
+  const goLink = (r) => (e) => { e.preventDefault(); navigate && navigate(r); };
   return (
     <>
-      <HomeHero onApply={go("apply")} onHire={go("home")} />
+      <HomeHero onApply={go("worker-registration")} onHire={go("demand-submission")} />
       <TrustStrip />
-      <HomeServicesPreview />
-      <HomeSectorsPreview />
-      <HomeTrainingBand />
-      <HomeCountries />
-      <HomeEmployerBlock />
-      <HomeClients />
+      <HomeServicesPreview go={goLink} />
+      <HomeSectorsPreview go={goLink} />
+      <HomeTrainingBand go={go} />
+      <HomeCountries go={goLink} />
+      <HomeEmployerBlock go={go} />
+      <HomeClients go={goLink} />
       <HomeProcessBand />
-      <HomeClosingCta onApply={go("apply")} onHire={go("home")} />
+      <HomeClosingCta onApply={go("worker-registration")} onHire={go("demand-submission")} />
     </>
   );
 }

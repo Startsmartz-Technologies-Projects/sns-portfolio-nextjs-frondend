@@ -1,5 +1,8 @@
+"use client";
 import { TrainingTestingCenter } from "@/components/TrainingTestingCenter";
+import { useNavigate } from "@/components/useNavigate";
 
 export default function Page() {
-  return <TrainingTestingCenter />;
+  const navigate = useNavigate();
+  return <TrainingTestingCenter onNavigate={navigate} />;
 }

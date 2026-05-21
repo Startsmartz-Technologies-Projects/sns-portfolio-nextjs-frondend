@@ -40,9 +40,9 @@ const NAV_ACTIVE_CHILD = {
   "training-gallery": "Training & Testing Gallery",
 };
 
-function NavItem({ label, children, active, activeChild, onChildClick, onClick }) {
+function NavItem({ label, items, active, activeChild, onChildClick, onClick }) {
   const [open, setOpen] = useState(false);
-  if (!children) {
+  if (!items) {
     return (
       <a className={"nav-link" + (active ? " active" : "")} href="#"
         onClick={(e) => { if (onClick) { e.preventDefault(); onClick(); } }}>
@@ -57,7 +57,7 @@ function NavItem({ label, children, active, activeChild, onChildClick, onClick }
       </button>
       {open ? (
         <div className="nav-drop">
-          {children.map((c, i) => {
+          {items.map((c, i) => {
             const item = typeof c === "string" ? { label: c } : c;
             const cls = "drop-link" + (activeChild === item.label ? " current" : "");
             return (
@@ -91,7 +91,7 @@ function Header({ onNavigate, route }) {
               active={["company", "about", "why", "team", "md", "about-bangladesh"].includes(route)}
               activeChild={NAV_ACTIVE_CHILD[route] || null}
               onChildClick={(it) => onNavigate && onNavigate(it.route)}
-              children={[
+              items={[
                 { label: "Company Overview", route: "company" },
                 { label: "Why Choose Us", route: "why" },
                 { label: "Managing Director's Message", route: "md" },
@@ -102,7 +102,7 @@ function Header({ onNavigate, route }) {
               active={["services", "worker-categories", "training-testing-center", "medical-report"].includes(route)}
               activeChild={NAV_ACTIVE_CHILD[route] || null}
               onChildClick={(it) => onNavigate && onNavigate(it.route)}
-              children={[
+              items={[
                 { label: "Services", route: "services" },
                 { label: "Worker Categories", route: "worker-categories" },
                 { label: "Training & Testing Center", route: "training-testing-center" },
@@ -112,7 +112,7 @@ function Header({ onNavigate, route }) {
               active={["clients", "credentials"].includes(route)}
               activeChild={NAV_ACTIVE_CHILD[route] || null}
               onChildClick={(it) => onNavigate && onNavigate(it.route)}
-              children={[
+              items={[
                 { label: "Clients", route: "clients" },
                 { label: "Credentials & Documentation", route: "credentials" },
               ]} />
@@ -120,7 +120,7 @@ function Header({ onNavigate, route }) {
               active={["worker-registration", "apply", "agent-registration", "demand-submission"].includes(route)}
               activeChild={NAV_ACTIVE_CHILD[route] || null}
               onChildClick={(it) => onNavigate && onNavigate(it.route)}
-              children={[
+              items={[
                 { label: "Worker Registration", route: "worker-registration" },
                 { label: "Agent Registration", route: "agent-registration" },
                 { label: "Demand Submission", route: "demand-submission" },
@@ -129,7 +129,7 @@ function Header({ onNavigate, route }) {
               active={["office-gallery", "training-gallery"].includes(route)}
               activeChild={NAV_ACTIVE_CHILD[route] || null}
               onChildClick={(it) => onNavigate && onNavigate(it.route)}
-              children={[
+              items={[
                 { label: "Office Gallery", route: "office-gallery" },
                 { label: "Training & Testing Gallery", route: "training-gallery" },
               ]} />
@@ -179,11 +179,13 @@ function Header({ onNavigate, route }) {
               <a className={"nav-link nav-sub" + (route === "office-gallery" ? " current" : "")} onClick={go("office-gallery")}>Office Gallery</a>
               <a className={"nav-link nav-sub" + (route === "training-gallery" ? " current" : "")} onClick={go("training-gallery")}>Training &amp; Testing Gallery</a>
             </div>
-            <a className={"nav-link" + (route === "contact" ? " current" : "")} onClick={go("contact")}>Contact</a>
-            <div className="m-cta">
+            {/* <a className={"nav-link" + (route === "contact" ? " current" : "")} onClick={go("contact")}>Contact</a> */}
+            <Button variant="apply" block onClick={go("contact")}>Contact</Button>
+
+            {/* <div className="m-cta">
               <Button variant="outline" block onClick={go("demand-submission")}>Hire Workers</Button>
               <Button variant="apply" block onClick={go("worker-registration")}>Apply Now</Button>
-            </div>
+            </div> */}
           </div>
         ) : null}
       </header>

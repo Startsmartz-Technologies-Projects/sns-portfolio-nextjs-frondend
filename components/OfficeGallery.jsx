@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { Icon, Button, Eyebrow, SectionHead } from "./Primitives";
+import { GALLERY_IMAGES } from "./mediaAssets";
 
 /* ================================================================
    Page 16 of 18 — Office Gallery
@@ -31,15 +32,18 @@ function OgPlaceholder({ children }) {
    Caption + category from the SRS table for this page.
    Aspect ratios mixed (4:3 / 3:4 / 1:1) for masonry rhythm.
 ---------------------------------------------------------------- */
+/* The first 8 tiles carry real client-supplied gallery photos
+   (Cloudinary, see mediaAssets.js). The remaining tiles keep the
+   flagged gradient placeholder until more photos are supplied. */
 const OG_PHOTOS = [
-  { id: 1,  cat: "Building",                  caption: "Exterior of the office building", ratio: "4 / 3" },
-  { id: 2,  cat: "Reception",                 caption: "Reception desk",                  ratio: "1 / 1" },
-  { id: 3,  cat: "Reception",                 caption: "Reception waiting area",          ratio: "3 / 4" },
-  { id: 4,  cat: "Meeting & training rooms",  caption: "Meeting room",                    ratio: "4 / 3" },
-  { id: 5,  cat: "Meeting & training rooms",  caption: "Conference table",                ratio: "3 / 2" },
-  { id: 6,  cat: "Team at work",              caption: "Team at a workstation",           ratio: "1 / 1" },
-  { id: 7,  cat: "Team at work",              caption: "Manager's office",                ratio: "4 / 3" },
-  { id: 8,  cat: "Building",                  caption: "Lobby",                           ratio: "3 / 4" },
+  { id: 1,  cat: "Building",                  caption: "Exterior of the office building", ratio: "4 / 3", src: GALLERY_IMAGES[0] },
+  { id: 2,  cat: "Reception",                 caption: "Reception desk",                  ratio: "1 / 1", src: GALLERY_IMAGES[1] },
+  { id: 3,  cat: "Reception",                 caption: "Reception waiting area",          ratio: "3 / 4", src: GALLERY_IMAGES[2] },
+  { id: 4,  cat: "Meeting & training rooms",  caption: "Meeting room",                    ratio: "4 / 3", src: GALLERY_IMAGES[3] },
+  { id: 5,  cat: "Meeting & training rooms",  caption: "Conference table",                ratio: "3 / 2", src: GALLERY_IMAGES[4] },
+  { id: 6,  cat: "Team at work",              caption: "Team at a workstation",           ratio: "1 / 1", src: GALLERY_IMAGES[5] },
+  { id: 7,  cat: "Team at work",              caption: "Manager's office",                ratio: "4 / 3", src: GALLERY_IMAGES[6] },
+  { id: 8,  cat: "Building",                  caption: "Lobby",                           ratio: "3 / 4", src: GALLERY_IMAGES[7] },
   { id: 9,  cat: "Meeting & training rooms",  caption: "Interview area",                  ratio: "1 / 1" },
   { id: 10, cat: "Team at work",              caption: "Documentation desk",              ratio: "4 / 3" },
   { id: 11, cat: "Reception",                 caption: "Visitor seating",                 ratio: "3 / 4" },
@@ -76,10 +80,22 @@ const TILE_PRESETS = [
 ];
 
 /* ----------------------------------------------------------------
-   <PhotoPlaceholder> — the gradient tile content shared between
-   grid tiles and the lightbox photo slot.
+   <PhotoPlaceholder> — shared between grid tiles and the lightbox
+   photo slot. Renders the real Cloudinary photo when `src` is
+   supplied, otherwise falls back to the flagged gradient tile.
 ---------------------------------------------------------------- */
-function PhotoPlaceholder({ index, caption, big }) {
+function PhotoPlaceholder({ index, caption, big, src }) {
+  if (src) {
+    return (
+      <img
+        className={"og-photo-img" + (big ? " og-photo-img-big" : "")}
+        src={src}
+        alt={caption}
+        loading="lazy"
+        decoding="async"
+      />
+    );
+  }
   const preset = TILE_PRESETS[index % TILE_PRESETS.length];
   return (
     <span className="og-photo-ph" aria-hidden="true" style={{ background: preset.bg }}>
@@ -160,7 +176,7 @@ function PhotoTile({ photo, displayIndex, displayCount, totalIndex, onOpen }) {
       onClick={() => onOpen(totalIndex)}
       aria-label={`View photo — ${photo.caption} — ${displayIndex} of ${displayCount}`}
     >
-      <PhotoPlaceholder index={photo.id - 1} caption={photo.caption}/>
+      <PhotoPlaceholder index={photo.id - 1} caption={photo.caption} src={photo.src}/>
       <span className="og-tile-tag" aria-hidden="true">{photo.cat}</span>
       <span className="og-tile-overlay" aria-hidden="true">
         <span className="og-tile-view">
@@ -238,7 +254,7 @@ function Lightbox({ index, photos, onClose, onPrev, onNext, loadState = "ready" 
 
         <div className="og-lb-stage">
           <figure className="og-lb-figure" style={{ aspectRatio: p.ratio }}>
-            <PhotoPlaceholder index={p.id - 1} caption={p.caption} big/>
+            <PhotoPlaceholder index={p.id - 1} caption={p.caption} src={p.src} big/>
             {loadState === "error" ? (
               <div className="og-lb-error" role="alert">
                 <div className="alert alert-error" style={{maxWidth:420}}>
@@ -354,17 +370,18 @@ function OfficeGallery({ state = "default", onNavigate }) {
           <aside className="panel-card og-privacy" aria-labelledby="og-privacy-title">
             <div className="og-privacy-body">
               <Eyebrow>Photos</Eyebrow>
-              <h3 id="og-privacy-title">What's in these photos</h3>
+              <h3 id="og-privacy-title">What&apos;s in these photos</h3>
               <p>
                 These photos show our Dhaka office and our team in their
                 working roles. Where workers or clients appear, it is with
-                their consent. We never publish anyone's identification or
+                their consent. We never publish anyone&apos;s identification or
                 personal documents.
               </p>
             </div>
             <div className="og-privacy-actions">
               <a className="link-ghost"
                  href="#training-gallery"
+                 onClick={(e) => { e.preventDefault(); onNavigate && onNavigate("training-gallery"); }}
                  aria-label="See the Training and Testing Gallery">
                 See the Training &amp; Testing Gallery
                 {" "}<Icon size={14}>{OgGlyph.arrowRight}</Icon>
@@ -388,7 +405,8 @@ function OfficeGallery({ state = "default", onNavigate }) {
             </p>
           </div>
           <div className="contact-band-ctas">
-            <Button as="a" href="#contact" variant="outline-dark" size="large">
+            <Button as="a" href="#contact" variant="outline-dark" size="large"
+              onClick={(e) => { e.preventDefault(); onNavigate && onNavigate("contact"); }}>
               Find our office <Icon size={16}>{OgGlyph.arrowRight}</Icon>
             </Button>
             <Button variant="apply" size="large"

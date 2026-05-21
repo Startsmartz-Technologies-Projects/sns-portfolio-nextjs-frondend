@@ -11,14 +11,16 @@ function MdSlot({ children, lines = 1 }) {
   return <span className="copy-placeholder" data-lines={lines}>{children}</span>;
 }
 
-function MdMessage() {
+function MdMessage({ onNavigate }) {
+  const go = (r) => () => onNavigate && onNavigate(r);
+  const goLink = (r) => (e) => { e.preventDefault(); onNavigate && onNavigate(r); };
   return (
     <>
       {/* 2 — Compact page hero */}
       <section className="page-hero md-hero" data-screen-label="01 Hero">
         <div className="hero-arc small" aria-hidden="true" />
         <div className="container md-hero-inner">
-          <Eyebrow>Managing Director's Message</Eyebrow>
+          <Eyebrow>Managing Director&apos;s Message</Eyebrow>
           <h1 className="display-l md-hero-h">
             A message from our Managing Director
           </h1>
@@ -83,7 +85,7 @@ function MdMessage() {
           <p className="body-l">
             After receiving approval and obtaining our recruiting licence
             from the Bureau of Manpower, Employment and Training (BMET), under
-            the Ministry of Expatriates' Welfare and Overseas Employment, we
+            the Ministry of Expatriates&apos; Welfare and Overseas Employment, we
             began our journey with a strong commitment to honesty, dedication
             and quality service. Since then, we have worked closely with
             reputable organisations in different countries while following
@@ -170,7 +172,7 @@ function MdMessage() {
               </p>
             </div>
             <div className="md-team-cta">
-              <Button as="a" href="#" variant="outline" size="default">
+              <Button as="a" href="#" variant="outline" size="default" onClick={goLink("team")}>
                 See Leadership &amp; Team
                 <Icon name="arrow-up-right" size={14} />
               </Button>
@@ -200,8 +202,8 @@ function MdMessage() {
             </p>
           </div>
           <div className="contact-band-ctas">
-            <Button variant="apply" size="large">Apply Now</Button>
-            <Button variant="outline-dark" size="large">Hire Workers</Button>
+            <Button variant="apply" size="large" onClick={go("worker-registration")}>Apply Now</Button>
+            <Button variant="outline-dark" size="large" onClick={go("demand-submission")}>Hire Workers</Button>
           </div>
         </div>
       </section>

@@ -35,7 +35,9 @@ function LtPlaceholder({ children, lines = 1 }) {
   return <span className="copy-placeholder" data-lines={lines}>{children}</span>;
 }
 
-function LeadershipTeam() {
+function LeadershipTeam({ onNavigate }) {
+  const go = (r) => () => onNavigate && onNavigate(r);
+  const goLink = (r) => (e) => { e.preventDefault(); onNavigate && onNavigate(r); };
   return (
     <>
       {/* 2 — Compact page hero */}
@@ -69,7 +71,7 @@ function LeadershipTeam() {
                 <>
                   Founder
                   <span className="team-sep" aria-hidden="true"/>
-                  <a href="#/about/managing-directors-message">
+                  <a href="#/about/managing-directors-message" onClick={goLink("md")}>
                     Read the MD&rsquo;s message
                     <Icon size={11}>{LtGlyph.arrowRight}</Icon>
                   </a>
@@ -189,10 +191,10 @@ function LeadershipTeam() {
               </p>
             </div>
             <div className="delivers-actions">
-              <Button as="a" href="#/services" variant="outline" size="default">
+              <Button as="a" href="#/services" variant="outline" size="default" onClick={goLink("services")}>
                 See our services <Icon size={16}>{LtGlyph.arrowRight}</Icon>
               </Button>
-              <a className="link-ghost" href="#/training-testing-center">
+              <a className="link-ghost" href="#/training-testing-center" onClick={goLink("training-testing-center")}>
                 Visit the training centre <Icon size={14}>{LtGlyph.arrowUpRight}</Icon>
               </a>
             </div>
@@ -213,8 +215,8 @@ function LeadershipTeam() {
             </p>
           </div>
           <div className="contact-band-ctas">
-            <Button variant="apply" size="large">Apply Now</Button>
-            <Button variant="outline-dark" size="large">Hire Workers</Button>
+            <Button variant="apply" size="large" onClick={go("worker-registration")}>Apply Now</Button>
+            <Button variant="outline-dark" size="large" onClick={go("demand-submission")}>Hire Workers</Button>
           </div>
         </div>
       </section>

@@ -188,17 +188,19 @@ function ContactForm({ state = "default", onNavigate }) {
   const [showInfo, setShowInfo]       = useState(state === "default");
   const [submitState, setSubmitState] = useState(state);
 
+  /* Mirror prop -> local state during render (instead of via an effect)
+     so the canvas can capture the success/error states with the
+     info-alert hidden. Adjusting during render avoids a cascading render. */
+  const [prevState, setPrevState] = useState(state);
+  if (state !== prevState) {
+    setPrevState(state);
+    setSubmitState(state);
+    setShowInfo(state === "default");
+  }
+
   const isSubmitting = submitState === "submitting";
   const isSuccess    = submitState === "success";
   const isError      = submitState === "error";
-
-  useEffect(() => {
-    setSubmitState(state);
-    /* Mirror state -> info-alert visibility so the canvas can capture
-       the success/error states with the alert hidden (less noise). */
-    if (state !== "default") setShowInfo(false);
-    if (state === "default") setShowInfo(true);
-  }, [state]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

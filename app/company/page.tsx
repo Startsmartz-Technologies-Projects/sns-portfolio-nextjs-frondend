@@ -1,5 +1,8 @@
+"use client";
 import { CompanyOverview } from "@/components/CompanyOverview";
+import { useNavigate } from "@/components/useNavigate";
 
 export default function Page() {
-  return <CompanyOverview />;
+  const navigate = useNavigate();
+  return <CompanyOverview onNavigate={navigate} />;
 }

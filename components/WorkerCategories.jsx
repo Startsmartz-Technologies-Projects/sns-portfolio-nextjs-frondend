@@ -1,5 +1,6 @@
 "use client";
 import { Icon, Button, Eyebrow, SectionHead } from "./Primitives";
+import { RESOURCE_IMAGES } from "./mediaAssets";
 
 /* ===============================================================
    Page 7 of 18 — Worker Categories
@@ -145,6 +146,7 @@ const SECTORS = [
     name: "Construction",
     glyph: WcGlyph.hardhat,
     grad: "var(--grad-globe)",
+    img: RESOURCE_IMAGES.construction,
     desc: "Steel reinforcement, plastering, tiling, plumbing, electrical, formwork and more.",
     link: "View trades",
   },
@@ -154,6 +156,7 @@ const SECTORS = [
     name: "Hospitality & Catering",
     glyph: WcGlyph.chefHat,
     grad: "linear-gradient(135deg, #103A6B 0%, #008CA8 100%)",
+    img: RESOURCE_IMAGES.hotel,
     desc: "Cooks and chefs, kitchen helpers, waiters, food-service staff.",
     link: "View roles",
   },
@@ -163,6 +166,7 @@ const SECTORS = [
     name: "Cleaning Services",
     glyph: WcGlyph.spray,
     grad: "linear-gradient(135deg, #15498A 0%, #4DB6AC 100%)",
+    img: RESOURCE_IMAGES.cleaners,
     desc: "Hospital cleaners, office and industrial cleaners, housekeeping.",
     link: "View roles",
   },
@@ -172,6 +176,7 @@ const SECTORS = [
     name: "Manufacturing",
     glyph: WcGlyph.factory,
     grad: "linear-gradient(135deg, #0B2C54 0%, #1565C0 100%)",
+    img: RESOURCE_IMAGES.textile,
     desc: "Factory operators and production workers.",
     link: "View roles",
   },
@@ -190,6 +195,7 @@ const SECTORS = [
     name: "Drivers",
     glyph: WcGlyph.steering,
     grad: "linear-gradient(135deg, #0A2440 0%, #00ACC1 100%)",
+    img: RESOURCE_IMAGES.drivers,
     desc: "Light, heavy, and equipment drivers.",
     link: "View roles",
   },
@@ -199,12 +205,13 @@ const SECTORS = [
     name: "Other / Unskilled",
     glyph: WcGlyph.layers,
     grad: "linear-gradient(135deg, #15498A 0%, #00ACC1 60%, #4DB6AC 100%)",
+    img: RESOURCE_IMAGES.machinery,
     desc: "General labour and roles not listed in the named sectors.",
     link: "View roles",
   },
 ];
 
-function SectorCard({ id, tag, name, glyph, grad, desc, link, idx }) {
+function SectorCard({ id, tag, name, glyph, grad, img, desc, link, idx }) {
   return (
     <a
       className="sector-card wc-sector-card"
@@ -216,6 +223,9 @@ function SectorCard({ id, tag, name, glyph, grad, desc, link, idx }) {
         style={{ background: grad }}
         aria-hidden="true"
       >
+        {img ? (
+          <img className="sector-photo-img" src={img} alt="" loading="lazy" decoding="async"/>
+        ) : null}
         <div className="sector-photo-stripes"/>
         <span className="sector-tag-pill">{tag}</span>
         <div className="sector-photo-ic">
@@ -357,7 +367,8 @@ function OtherSectorBlock({ id, name, desc, roles }) {
 /* ================================================================
    Page composition
 ================================================================ */
-function WorkerCategories() {
+function WorkerCategories({ onNavigate }) {
+  const go = (r) => () => onNavigate && onNavigate(r);
   return (
     <>
       {/* 2 — Compact page hero */}
@@ -443,6 +454,7 @@ function WorkerCategories() {
             <div className="wc-taxonomy-actions">
               <a className="link-ghost wc-taxonomy-link"
                  href="#apply"
+                 onClick={(e) => { e.preventDefault(); onNavigate && onNavigate("worker-registration"); }}
                  aria-label="Apply as a worker — opens the Worker Registration form">
                 Apply as a worker
                 <Icon size={14} name="arrow-up-right"/>
@@ -466,8 +478,8 @@ function WorkerCategories() {
             </p>
           </div>
           <div className="contact-band-ctas">
-            <Button variant="apply" size="large">Apply Now</Button>
-            <Button variant="outline-dark" size="large">Hire Workers</Button>
+            <Button variant="apply" size="large" onClick={go("worker-registration")}>Apply Now</Button>
+            <Button variant="outline-dark" size="large" onClick={go("demand-submission")}>Hire Workers</Button>
           </div>
         </div>
       </section>

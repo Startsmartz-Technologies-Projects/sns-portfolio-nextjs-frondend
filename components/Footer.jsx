@@ -18,27 +18,27 @@ function Footer({ onNavigate }) {
           </div>
           <div className="foot-col">
             <h5>Company</h5>
-            <a href="#">About SNS Overseas</a>
-            <a href="#">Why Choose Us</a>
-            <a href="#">Leadership & Team</a>
-            <a href="#">Credentials</a>
+            <a href="#" onClick={go("company")}>About SNS Overseas</a>
+            <a href="#" onClick={go("why")}>Why Choose Us</a>
+            <a href="#" onClick={go("team")}>Leadership & Team</a>
+            <a href="#" onClick={go("credentials")}>Credentials</a>
           </div>
           <div className="foot-col">
             <h5>For You</h5>
-            <a href="#" onClick={go("apply")}>Apply as a Worker</a>
-            <a href="#">Hire Workers</a>
-            <a href="#">Become an Agent</a>
+            <a href="#" onClick={go("worker-registration")}>Apply as a Worker</a>
+            <a href="#" onClick={go("demand-submission")}>Hire Workers</a>
+            <a href="#" onClick={go("agent-registration")}>Become an Agent</a>
             <a href="#" onClick={go("medical-report")}>Medical Report</a>
           </div>
           <div className="foot-col foot-cta">
             <h5>Get started</h5>
             <p className="foot-cta-line">Ready to take the next step? Register in minutes.</p>
-            <Button variant="apply" size="small" onClick={go("apply")}>Apply Now</Button>
+            <Button variant="apply" size="small" onClick={go("worker-registration")}>Apply Now</Button>
           </div>
         </div>
         <div className="foot-bottom">
           <span>© 2026 SNS Overseas. All rights reserved.</span>
-          <span>BAIRA Member · Trade Licence TRAD/DNCC/054873/2022 · <a href="#">Privacy Notice</a></span>
+          <span>BAIRA Member · Trade Licence TRAD/DNCC/054873/2022 · <a href="#" onClick={(e) => e.preventDefault()}>Privacy Notice</a></span>
         </div>
       </div>
     </footer>

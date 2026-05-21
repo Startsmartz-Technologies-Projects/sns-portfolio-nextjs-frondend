@@ -87,7 +87,7 @@ function LookupCard({ tweaks = {} }) {
           <hr className="mr-divider" aria-hidden="true"/>
 
           <div className="mr-need">
-            <Eyebrow>What you'll need</Eyebrow>
+            <Eyebrow>What you&apos;ll need</Eyebrow>
             <ul className="spec-list mr-need-list">
               <li>
                 <span className="spec-marker" aria-hidden="true">

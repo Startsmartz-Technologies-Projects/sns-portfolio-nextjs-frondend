@@ -183,11 +183,13 @@ function DocCard({ glyph, title, meta, verified, download, ariaTail }) {
         <p className="doc-meta">{meta}</p>
         <div className="doc-actions">
           <a className="doc-link" href="#"
+             onClick={(e) => e.preventDefault()}
              aria-label={`View document — ${ariaTail}`}>
             View document <Icon size={13} color="currentColor">{DocGlyph.arrowRight}</Icon>
           </a>
           {download ? (
             <a className="doc-download" href="#"
+               onClick={(e) => e.preventDefault()}
                aria-label={`Download PDF — ${ariaTail}`}>
               <Icon size={13} color="currentColor">{DocGlyph.download}</Icon> Download PDF
             </a>
@@ -201,7 +203,7 @@ function DocCard({ glyph, title, meta, verified, download, ariaTail }) {
 /* ----------------------------------------------------------------
    Sample demand letter — single wider doc-card spanning two columns
 ---------------------------------------------------------------- */
-function SampleDemandCard() {
+function SampleDemandCard({ onNavigate }) {
   return (
     <article className="doc-card doc-card-wide" aria-label="Sample document">
       <div className="doc-thumb doc-thumb-wide" aria-hidden="true">
@@ -218,10 +220,12 @@ function SampleDemandCard() {
         </p>
         <div className="doc-wide-actions">
           <Button as="a" href="#" variant="outline" size="default"
+            onClick={(e) => e.preventDefault()}
             aria-label="View sample — Sample Demand Letter">
             View sample <Icon size={14}>{DocGlyph.arrowRight}</Icon>
           </Button>
           <a className="link-ghost" href="#/demand-submission"
+             onClick={(e) => { e.preventDefault(); onNavigate && onNavigate("demand-submission"); }}
              aria-label="Submit a real demand — opens the demand-submission form">
             Submit a real demand <Icon size={14}>{DocGlyph.external}</Icon>
           </a>
@@ -240,13 +244,13 @@ const VERIFY_STEPS = [
     t: "Note the licence number",
     body: (
       <>Recruiting Licence <strong>RL-2567</strong>, issued by BMET
-      (Ministry of Expatriates' Welfare and Overseas Employment).</>
+      (Ministry of Expatriates&apos; Welfare and Overseas Employment).</>
     ),
   },
   {
     t: "Check on the BMET register",
     body: (
-      <>Every BMET-licensed agency is listed on the Ministry's
+      <>Every BMET-licensed agency is listed on the Ministry&apos;s
       public records.</>
     ),
   },
@@ -261,7 +265,8 @@ const VERIFY_STEPS = [
 /* ================================================================
    Page composition
 ================================================================ */
-function Credentials() {
+function Credentials({ onNavigate }) {
+  const go = (r) => () => onNavigate && onNavigate(r);
   return (
     <>
       {/* 2 — Compact page hero */}
@@ -304,7 +309,7 @@ function Credentials() {
             title="A sample demand letter for employers"
             lead="Shown on its own because it sits at the intersection of credential and what to expect — preview the format before you draft one."
           />
-          <SampleDemandCard/>
+          <SampleDemandCard onNavigate={onNavigate}/>
         </div>
       </section>
 
@@ -325,6 +330,7 @@ function Credentials() {
             </div>
             <div className="cr-privacy-link">
               <a className="link-ghost" href="#/privacy-notice"
+                 onClick={(e) => e.preventDefault()}
                  aria-label="Read the Privacy Notice">
                 Read the Privacy Notice <Icon size={14}>{DocGlyph.arrowRight}</Icon>
               </a>
@@ -367,8 +373,8 @@ function Credentials() {
               </span>
               <p className="cr-verify-foot">
                 Issued by the Bureau of Manpower, Employment &amp; Training
-                under the Ministry of Expatriates' Welfare and Overseas
-                Employment, Government of the People's Republic of Bangladesh.
+                under the Ministry of Expatriates&apos; Welfare and Overseas
+                Employment, Government of the People&apos;s Republic of Bangladesh.
               </p>
               <span className="cr-verify-draft" aria-hidden="true">
                 Draft wording — refine with client
@@ -391,8 +397,8 @@ function Credentials() {
             </p>
           </div>
           <div className="contact-band-ctas">
-            <Button variant="apply" size="large">Apply Now</Button>
-            <Button variant="outline-dark" size="large">Hire Workers</Button>
+            <Button variant="apply" size="large" onClick={go("worker-registration")}>Apply Now</Button>
+            <Button variant="outline-dark" size="large" onClick={go("demand-submission")}>Hire Workers</Button>
           </div>
         </div>
       </section>

@@ -157,10 +157,11 @@ const PHOTOS = [
   { tag: "Common area",    grad: "linear-gradient(135deg,#103A6B,#4DB6AC)",       sub: "Shared spaces at the centre" },
 ];
 
-function TcPhotoTile({ tag, grad, sub }) {
+function TcPhotoTile({ tag, grad, sub, onNavigate }) {
   return (
     <a className="tc-photo"
        href="#/training-testing-gallery"
+       onClick={(e) => { e.preventDefault(); onNavigate && onNavigate("training-gallery"); }}
        style={{ "--tc-grad": grad }}
        aria-label={`View photo — ${tag.toLowerCase()} — opens the Training & Testing Gallery`}>
       <div className="tc-photo-inner" aria-hidden="true"/>
@@ -198,7 +199,9 @@ function CredItem({ glyph, title, sub }) {
 /* ================================================================
    Page composition
 ================================================================ */
-function TrainingTestingCenter() {
+function TrainingTestingCenter({ onNavigate }) {
+  const go = (r) => () => onNavigate && onNavigate(r);
+  const goLink = (r) => (e) => { e.preventDefault(); onNavigate && onNavigate(r); };
   return (
     <>
       {/* 2 — Feature hero on grad-navy (large) */}
@@ -214,7 +217,7 @@ function TrainingTestingCenter() {
                 facility, before deployment.
               </p>
               <div className="feature-band-ctas">
-                <Button as="a" href="#/training-testing-gallery" variant="outline-dark" size="default">
+                <Button as="a" href="#/training-testing-gallery" variant="outline-dark" size="default" onClick={goLink("training-gallery")}>
                   Visit the Training Gallery <Icon size={16}>{TcGlyph.arrowRight}</Icon>
                 </Button>
               </div>
@@ -267,7 +270,7 @@ function TrainingTestingCenter() {
               agriculture, drivers &mdash; are screened differently:
               practical assessment without formal trade testing.
             </p>
-            <a className="link-ghost" href="#/worker-categories">
+            <a className="link-ghost" href="#/worker-categories" onClick={goLink("worker-categories")}>
               See all sectors and trades <Icon size={14}>{TcGlyph.arrowRight}</Icon>
             </a>
           </div>
@@ -307,10 +310,10 @@ function TrainingTestingCenter() {
             lead="A look inside the centre — training floors, trade-test bays and the records room."
           />
           <div className="tc-photo-grid">
-            {PHOTOS.map((p, i) => <TcPhotoTile key={i} {...p}/>)}
+            {PHOTOS.map((p, i) => <TcPhotoTile key={i} {...p} onNavigate={onNavigate}/>)}
           </div>
           <div className="tc-gallery-foot">
-            <a className="link-ghost" href="#/training-testing-gallery">
+            <a className="link-ghost" href="#/training-testing-gallery" onClick={goLink("training-gallery")}>
               See the full Training &amp; Testing Gallery{" "}
               <Icon size={14}>{TcGlyph.arrowRight}</Icon>
             </a>
@@ -346,8 +349,8 @@ function TrainingTestingCenter() {
             </p>
           </div>
           <div className="contact-band-ctas">
-            <Button variant="hire" size="large">Hire Workers</Button>
-            <Button variant="apply" size="large">Apply Now</Button>
+            <Button variant="hire" size="large" onClick={go("demand-submission")}>Hire Workers</Button>
+            <Button variant="apply" size="large" onClick={go("worker-registration")}>Apply Now</Button>
           </div>
         </div>
       </section>

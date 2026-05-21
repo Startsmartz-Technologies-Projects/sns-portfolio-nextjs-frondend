@@ -1,6 +1,7 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Icon, Button, Field, Input, Textarea, Select, Alert, Eyebrow, LicencePill } from "./Primitives";
+import { validateForm, focusFirstError, required, email, phone, numberRange } from "./formValidation";
 
 /* =============================================================
    Page 14 of 18 — Demand Submission  ·  SRS §5.3
@@ -179,24 +180,68 @@ function DsSuccessBlock({ onReset, onServices }) {
    The form — single centred column, max 560 px, two numbered
    sections (Company / Requirement).
    ============================================================= */
+/* Per-field validation rules for the demand form. */
+const DS_SCHEMA = {
+  company_name: [required("Company name")],
+  contact_name: [required("Contact person name")],
+  country:      [required("Country")],
+  email:        [required("Business email"), email()],
+  phone:        [required("Phone / WhatsApp"), phone()],
+  worker_count: [required("Number of workers"), numberRange(1, 100000, "Number of workers")],
+};
+
 function DemandSubmissionForm({ state = "default", onNavigate }) {
   const [trades, setTrades]           = useState(state === "error" ? ["construction"] : ["construction", "drivers"]);
   const [consent, setConsent]         = useState(state !== "default");
   const [showInfo, setShowInfo]       = useState(true);
   const [submitState, setSubmitState] = useState(state);
+  const [values, setValues] = useState({
+    company_name: "", contact_name: "", country: "", email: "", phone: "",
+    worker_count: "", message: "",
+  });
+  const [errors, setErrors] = useState({});
+  const [consentError, setConsentError] = useState("");
+  const [tradesError, setTradesError] = useState("");
+  const formRef = useRef(null);
+
+  /* Mirror prop -> local override: adjust during render when prop changes. */
+  const [prevState, setPrevState] = useState(state);
+  if (state !== prevState) {
+    setPrevState(state);
+    setSubmitState(state);
+  }
 
   const isSubmitting = submitState === "submitting";
   const isSuccess    = submitState === "success";
   const isError      = submitState === "error";
 
-  useEffect(() => { setSubmitState(state); }, [state]);
+  const setField = (name) => (e) => {
+    const v = e.target.value;
+    setValues(prev => ({ ...prev, [name]: v }));
+    if (errors[name]) setErrors(prev => ({ ...prev, [name]: "" }));
+  };
 
-  const toggleTrade = (id) =>
+  const toggleTrade = (id) => {
     setTrades(t => t.includes(id) ? t.filter(x => x !== id) : [...t, id]);
+    setTradesError("");
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!consent || isSubmitting) return;
+    if (isSubmitting) return;
+
+    const fieldErrors = validateForm(values, DS_SCHEMA);
+    const consentMsg = consent ? "" : "Please agree to be contacted before submitting.";
+    const tradesMsg  = trades.length ? "" : "Select at least one worker category.";
+    setErrors(fieldErrors);
+    setConsentError(consentMsg);
+    setTradesError(tradesMsg);
+
+    if (Object.keys(fieldErrors).length || consentMsg || tradesMsg) {
+      focusFirstError(fieldErrors, formRef.current);
+      return;
+    }
+
     setSubmitState("submitting");
     setTimeout(() => setSubmitState("success"), 1200);
   };
@@ -237,7 +282,7 @@ function DemandSubmissionForm({ state = "default", onNavigate }) {
         </div>
       ) : null}
 
-      <form className="wr-form ds-form" onSubmit={handleSubmit} noValidate aria-busy={isSubmitting}>
+      <form className="wr-form ds-form" onSubmit={handleSubmit} noValidate aria-busy={isSubmitting} ref={formRef}>
 
         {/* =====================================================
             SECTION 1 — Your Company (SRS §5.3 §1)
@@ -245,22 +290,26 @@ function DemandSubmissionForm({ state = "default", onNavigate }) {
         <DsFormSectionHead n="1" title="Your Company" id="ds-sec-company"/>
 
         {/* 1. Company name */}
-        <Field label="Company name" required id="ds-co-name">
+        <Field label="Company name" required id="ds-co-name" error={errors.company_name}>
           <Input id="ds-co-name" name="company_name" autoComplete="organization"
             placeholder="e.g. Al-Nasr Contracting Co."
-            defaultValue={isError ? "Al-Nasr Contracting Co." : ""}/>
+            value={values.company_name} onChange={setField("company_name")}
+            error={errors.company_name} aria-invalid={!!errors.company_name}/>
         </Field>
 
         {/* 2. Contact person name */}
-        <Field label="Contact person name" required id="ds-contact">
+        <Field label="Contact person name" required id="ds-contact" error={errors.contact_name}>
           <Input id="ds-contact" name="contact_name" autoComplete="name"
             placeholder="Full name"
-            defaultValue={isError ? "Faisal Al-Rashid" : ""}/>
+            value={values.contact_name} onChange={setField("contact_name")}
+            error={errors.contact_name} aria-invalid={!!errors.contact_name}/>
         </Field>
 
         {/* 3. Country — native select */}
-        <Field label="Country" required id="ds-country">
-          <Select id="ds-country" name="country" defaultValue={isError ? "Saudi Arabia" : ""}
+        <Field label="Country" required id="ds-country" error={errors.country}>
+          <Select id="ds-country" name="country"
+            value={values.country} onChange={setField("country")}
+            error={errors.country} aria-invalid={!!errors.country}
             aria-label="Country">
             <option value="" disabled>Select a country</option>
             {DS_COUNTRIES.map(c => <option key={c} value={c}>{c}</option>)}
@@ -268,28 +317,23 @@ function DemandSubmissionForm({ state = "default", onNavigate }) {
         </Field>
 
         {/* 4. Business email */}
-        <Field label="Business email" required id="ds-email">
+        <Field label="Business email" required id="ds-email" error={errors.email}>
           <Input id="ds-email" name="email" type="email" autoComplete="email"
             placeholder="you@company.com"
-            defaultValue={isError ? "faisal@al-nasr.sa" : ""}/>
+            value={values.email} onChange={setField("email")}
+            error={errors.email} aria-invalid={!!errors.email}/>
         </Field>
 
-        {/* 5. Phone / WhatsApp — error state surfaces here */}
+        {/* 5. Phone / WhatsApp */}
         <Field label="Phone / WhatsApp" required id="ds-phone"
-          help={isError ? undefined : "Include the country code, e.g. +966…"}>
+          error={errors.phone}
+          help="Include the country code, e.g. +966…">
           <Input id="ds-phone" name="phone" type="tel" autoComplete="tel"
             inputMode="tel"
             placeholder="+966…"
-            defaultValue={isError ? "+966 5" : ""}
-            error={isError}
-            aria-invalid={isError || undefined}
-            aria-describedby={isError ? "ds-phone-err" : undefined}/>
-          {isError ? (
-            <span id="ds-phone-err" className="err" role="alert">
-              <Icon name="alert" size={14}/>
-              Please include the full country code and number, e.g. +966 5XXXXXXXX.
-            </span>
-          ) : null}
+            value={values.phone} onChange={setField("phone")}
+            error={errors.phone}
+            aria-invalid={!!errors.phone}/>
         </Field>
 
         {/* =====================================================
@@ -299,6 +343,7 @@ function DemandSubmissionForm({ state = "default", onNavigate }) {
 
         {/* 1. Worker category / trades — multi-select pill chips */}
         <Field label="Worker category / trade(s) required" required
+          error={tradesError}
           help="Tap all that apply.">
           <div className="chip-group ds-chip-group"
             role="group" aria-label="Worker categories required">
@@ -318,10 +363,13 @@ function DemandSubmissionForm({ state = "default", onNavigate }) {
 
         {/* 2. Number of workers required */}
         <Field label="Number of workers required" required id="ds-count"
+          error={errors.worker_count}
           help="If you need several categories, give the total here and use the message field for the per-category breakdown.">
           <Input id="ds-count" name="worker_count" type="number"
             inputMode="numeric" min="1"
-            placeholder="e.g. 40"/>
+            placeholder="e.g. 40"
+            value={values.worker_count} onChange={setField("worker_count")}
+            error={errors.worker_count} aria-invalid={!!errors.worker_count}/>
         </Field>
 
         {/* 3. Demand letter upload (optional) */}
@@ -334,7 +382,8 @@ function DemandSubmissionForm({ state = "default", onNavigate }) {
         <Field label="Additional requirements / message" id="ds-message"
           help="Anything else we should know — start date, experience level, language, specific trades, working conditions…">
           <Textarea id="ds-message" name="message" rows={4}
-            placeholder="Start date, experience level, accommodation, salary range, etc."/>
+            placeholder="Start date, experience level, accommodation, salary range, etc."
+            value={values.message} onChange={setField("message")}/>
         </Field>
 
         {/* Honeypot (FR-49) — visually hidden */}
@@ -346,15 +395,19 @@ function DemandSubmissionForm({ state = "default", onNavigate }) {
 
         {/* 5. Consent */}
         <label className="consent">
-          <input type="checkbox" checked={consent} onChange={e => setConsent(e.target.checked)} />
+          <input type="checkbox" checked={consent}
+            onChange={e => { setConsent(e.target.checked); if (e.target.checked) setConsentError(""); }} />
           <span className="consent-tick" aria-hidden="true">
             <Icon name="check" size={12} color="var(--navy-900)" strokeWidth={3}/>
           </span>
           <span className="consent-body">
             I agree to be contacted by SNS Overseas regarding this submission,
-            and I have read the <a href="#">Privacy Notice</a>.
+            and I have read the <a href="#" onClick={(e) => e.preventDefault()}>Privacy Notice</a>.
           </span>
         </label>
+        {consentError ? (
+          <span className="err" role="alert"><Icon name="alert" size={14}/> {consentError}</span>
+        ) : null}
 
         {/* 6. Reassurance line */}
         <p className="wr-reassurance">
@@ -365,7 +418,7 @@ function DemandSubmissionForm({ state = "default", onNavigate }) {
 
         {/* 7. Submit — solid navy btn-hire (employer-led page) */}
         <Button variant="hire" size="large" block
-          disabled={!consent || isSubmitting}
+          disabled={isSubmitting}
           aria-live="polite">
           {isSubmitting ? (
             <><span className="wr-spinner ds-spinner-on-dark" aria-hidden="true"/> Sending…</>
@@ -441,7 +494,7 @@ function DemandSubmission({ state = "default", onNavigate }) {
       <section className="ds-docs-band">
         <div className="container">
           <div className="ds-docs-head">
-            <Eyebrow>What you'll typically need</Eyebrow>
+            <Eyebrow>What you&apos;ll typically need</Eyebrow>
             <h3 className="h3">Documents we may request</h3>
           </div>
           <div className="ds-docs-grid">

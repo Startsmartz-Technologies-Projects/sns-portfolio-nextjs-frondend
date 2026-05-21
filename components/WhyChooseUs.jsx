@@ -85,7 +85,9 @@ function WcuPlaceholder({ children, lines = 1 }) {
   return <span className="copy-placeholder" data-lines={lines}>{children}</span>;
 }
 
-function WhyChooseUs() {
+function WhyChooseUs({ onNavigate }) {
+  const go = (r) => () => onNavigate && onNavigate(r);
+  const goLink = (r) => (e) => { e.preventDefault(); onNavigate && onNavigate(r); };
   return (
     <>
       {/* 2 — Compact page hero */}
@@ -122,7 +124,7 @@ function WhyChooseUs() {
               glyph={WcuGlyph.shieldCheck}
               title="Government-licensed agency"
               body={<>Recruiting Licence <strong>RL-2567</strong> issued by BMET
-                (Ministry of Expatriates' Welfare and Overseas Employment) —
+                (Ministry of Expatriates&apos; Welfare and Overseas Employment) —
                 verifiable and current.</>}
             />
             <DifferentiatorCard
@@ -174,7 +176,7 @@ function WhyChooseUs() {
               <li>Faster, more predictable deployment timelines</li>
             </ul>
             <div className="feature-band-ctas">
-              <Button as="a" href="#" variant="outline-dark" size="default">
+              <Button as="a" href="#" variant="outline-dark" size="default" onClick={goLink("training-testing-center")}>
                 Visit the centre <Icon size={16}>{WcuGlyph.arrowRight}</Icon>
               </Button>
             </div>
@@ -210,6 +212,7 @@ function WhyChooseUs() {
               title="A reliable supply chain of vetted workers"
               body="Licensed sourcing, in-house screening and trade-testing, and Migrants-Act-compliant paperwork — so each deployment is predictable, traceable, and on-time."
               href="#"
+              onNavigate={() => onNavigate && onNavigate("demand-submission")}
             />
             <AudienceCard
               overline="For job seekers"
@@ -217,6 +220,7 @@ function WhyChooseUs() {
               title="A regulated, well-trained route abroad"
               body="A BMET-licensed agency, training and trade-testing under one roof, and no shortcuts on documentation or fitness — so you arrive ready and protected."
               href="#"
+              onNavigate={() => onNavigate && onNavigate("worker-registration")}
             />
             <AudienceCard
               overline="For agents"
@@ -224,6 +228,7 @@ function WhyChooseUs() {
               title="A licensed partner you can refer to with confidence"
               body="RL-2567 and BAIRA-recognised, with the training capacity to back the candidates you send us — refer your community without risking their trust."
               href="#"
+              onNavigate={() => onNavigate && onNavigate("agent-registration")}
             />
           </div>
         </div>
@@ -240,8 +245,8 @@ function WhyChooseUs() {
             </p>
           </div>
           <div className="contact-band-ctas">
-            <Button variant="apply" size="large">Apply Now</Button>
-            <Button variant="outline-dark" size="large">Hire Workers</Button>
+            <Button variant="apply" size="large" onClick={go("worker-registration")}>Apply Now</Button>
+            <Button variant="outline-dark" size="large" onClick={go("demand-submission")}>Hire Workers</Button>
           </div>
         </div>
       </section>
@@ -266,7 +271,7 @@ function DifferentiatorCard({ glyph, title, body }) {
   );
 }
 
-function AudienceCard({ overline, glyph, title, body, href }) {
+function AudienceCard({ overline, glyph, title, body, href, onNavigate }) {
   return (
     <article className="aud-card">
       <header className="aud-head">
@@ -277,7 +282,8 @@ function AudienceCard({ overline, glyph, title, body, href }) {
       </header>
       <h3>{title}</h3>
       <p>{body}</p>
-      <a className="aud-link" href={href} aria-label={`Learn more — ${overline}`}>
+      <a className="aud-link" href={href} aria-label={`Learn more — ${overline}`}
+        onClick={(e) => { e.preventDefault(); onNavigate && onNavigate(); }}>
         Learn more <Icon size={14}>{WcuGlyph.arrowRight}</Icon>
       </a>
     </article>

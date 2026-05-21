@@ -170,7 +170,7 @@ const PARTNERS = [
     glyph: SvcGlyph.stethoscope,
     title: "Care Rapid Point (CRP)",
     sub: "Medical partner — Diagnostic & Consultation Centre",
-    link: { label: "View medical process", href: "#/medical-report" },
+    link: { label: "View medical process", href: "#/medical-report", route: "medical-report" },
   },
   {
     glyph: SvcGlyph.plane,
@@ -180,7 +180,7 @@ const PARTNERS = [
   },
 ];
 
-function PartnerItem({ glyph, title, sub, link }) {
+function PartnerItem({ glyph, title, sub, link, onNavigate }) {
   return (
     <div className="partner-item">
       <div className="partner-tile" aria-hidden="true">
@@ -191,7 +191,8 @@ function PartnerItem({ glyph, title, sub, link }) {
         <p className="partner-s">{sub}</p>
         {link ? (
           <a href={link.href} className="partner-link"
-             aria-label={`${link.label} — ${title}`}>
+             aria-label={`${link.label} — ${title}`}
+             onClick={(e) => { e.preventDefault(); onNavigate && onNavigate(link.route); }}>
             {link.label} <Icon size={13}>{SvcGlyph.arrowRight}</Icon>
           </a>
         ) : null}
@@ -203,7 +204,9 @@ function PartnerItem({ glyph, title, sub, link }) {
 /* ================================================================
    Page composition
 ================================================================ */
-function Services() {
+function Services({ onNavigate }) {
+  const go = (r) => () => onNavigate && onNavigate(r);
+  const goLink = (r) => (e) => { e.preventDefault(); onNavigate && onNavigate(r); };
   return (
     <>
       {/* 2 — Compact page hero */}
@@ -265,7 +268,7 @@ function Services() {
             align="center"
           />
           <div className="partner-strip">
-            {PARTNERS.map((p, i) => <PartnerItem key={i} {...p}/>)}
+            {PARTNERS.map((p, i) => <PartnerItem key={i} {...p} onNavigate={onNavigate}/>)}
           </div>
           <p className="partner-banking">
             <Icon size={13} color="var(--ink-500)">{SvcGlyph.bank}</Icon>
@@ -290,10 +293,12 @@ function Services() {
             </div>
             <div className="connector-actions">
               <Button as="a" href="#/credentials" variant="outline" size="default"
+                onClick={goLink("credentials")}
                 aria-label="See our credentials — license, BAIRA and registration documents">
                 See our credentials <Icon size={16}>{SvcGlyph.arrowRight}</Icon>
               </Button>
               <a className="link-ghost" href="#/about/why-choose-us"
+                onClick={goLink("why")}
                 aria-label="Why choose us — the four reasons employers, workers and agents pick SNS Overseas">
                 Why choose us <Icon size={14} name="arrow-up-right"/>
               </a>
@@ -315,8 +320,8 @@ function Services() {
             </p>
           </div>
           <div className="contact-band-ctas">
-            <Button variant="apply" size="large">Apply Now</Button>
-            <Button variant="outline-dark" size="large">Hire Workers</Button>
+            <Button variant="apply" size="large" onClick={go("worker-registration")}>Apply Now</Button>
+            <Button variant="outline-dark" size="large" onClick={go("demand-submission")}>Hire Workers</Button>
           </div>
         </div>
       </section>
