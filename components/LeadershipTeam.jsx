@@ -103,8 +103,8 @@ function LeadershipTeam({ onNavigate }) {
             <header className="cred-strip-head">
               <Eyebrow>Leadership in brief</Eyebrow>
               <h3>Leadership credentials at a glance</h3>
-              <span className="cred-strip-draft" aria-label="Draft copy, subject to client refinement">
-                Draft — subject to client refinement
+              <span className="cred-strip-draft " aria-label="Draft copy, subject to client refinement">
+                SNS Overseas is founder-led, military-disciplined, and operations-driven — giving every employer a single accountable team from recruitment through deployment.
               </span>
             </header>
 

@@ -1528,7 +1528,7 @@ img { max-width: 100%; display: block; height: auto; }
   font: 500 11.5px var(--font-sans);
   color: var(--ink-500);
   display: inline-flex; align-items: center; gap: 8px;
-  padding: 5px 10px;
+  padding: 8px 20px;
   border-radius: var(--r-pill);
   background: rgba(255, 179, 0, .1);
   border: 1px dashed var(--gold-500);
