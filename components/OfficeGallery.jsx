@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { Icon, Button, Eyebrow, SectionHead } from "./Primitives";
-import { GALLERY_IMAGES } from "./mediaAssets";
+import { OFFICE_GALLERY_IMAGES } from "./mediaAssets";
 
 /* ================================================================
    Page 16 of 18 — Office Gallery
@@ -32,22 +32,12 @@ function OgPlaceholder({ children }) {
    Caption + category from the SRS table for this page.
    Aspect ratios mixed (4:3 / 3:4 / 1:1) for masonry rhythm.
 ---------------------------------------------------------------- */
-/* The first 8 tiles carry real client-supplied gallery photos
-   (Cloudinary, see mediaAssets.js). The remaining tiles keep the
-   flagged gradient placeholder until more photos are supplied. */
+/* Three real client-supplied office photos (Cloudinary, see
+   mediaAssets.js — OFFICE_GALLERY_IMAGES). */
 const OG_PHOTOS = [
-  { id: 1,  cat: "Building",                  caption: "Exterior of the office building", ratio: "4 / 3", src: GALLERY_IMAGES[0] },
-  { id: 2,  cat: "Reception",                 caption: "Reception desk",                  ratio: "1 / 1", src: GALLERY_IMAGES[1] },
-  { id: 3,  cat: "Reception",                 caption: "Reception waiting area",          ratio: "3 / 4", src: GALLERY_IMAGES[2] },
-  { id: 4,  cat: "Meeting & training rooms",  caption: "Meeting room",                    ratio: "4 / 3", src: GALLERY_IMAGES[3] },
-  { id: 5,  cat: "Meeting & training rooms",  caption: "Conference table",                ratio: "3 / 2", src: GALLERY_IMAGES[4] },
-  { id: 6,  cat: "Team at work",              caption: "Team at a workstation",           ratio: "1 / 1", src: GALLERY_IMAGES[5] },
-  { id: 7,  cat: "Team at work",              caption: "Manager's office",                ratio: "4 / 3", src: GALLERY_IMAGES[6] },
-  { id: 8,  cat: "Building",                  caption: "Lobby",                           ratio: "3 / 4", src: GALLERY_IMAGES[7] },
-  { id: 9,  cat: "Meeting & training rooms",  caption: "Interview area",                  ratio: "1 / 1" },
-  { id: 10, cat: "Team at work",              caption: "Documentation desk",              ratio: "4 / 3" },
-  { id: 11, cat: "Reception",                 caption: "Visitor seating",                 ratio: "3 / 4" },
-  { id: 12, cat: "Building",                  caption: "Building entrance",               ratio: "3 / 2" },
+  { id: 1, cat: "Meeting & training rooms", caption: "Interview area",     ratio: "1 / 1", src: OFFICE_GALLERY_IMAGES[0] },
+  { id: 2, cat: "Team at work",             caption: "Documentation desk", ratio: "4 / 3", src: OFFICE_GALLERY_IMAGES[1] },
+  { id: 3, cat: "Reception",                caption: "Visitor seating",    ratio: "3 / 4", src: OFFICE_GALLERY_IMAGES[2] },
 ];
 
 const OG_CATEGORIES = [

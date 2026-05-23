@@ -1,5 +1,6 @@
 "use client";
 import { Icon, Button, Eyebrow, SectionHead } from "./Primitives";
+import { ABOUT_BANGLADESH_IMAGE } from "./mediaAssets";
 
 /* ===============================================================
    Page 6 of 18 — About Bangladesh
@@ -133,17 +134,18 @@ function AboutBangladesh({ onNavigate }) {
               </p>
             </div>
 
-            <figure className="ab-photo ab-photo-portrait" aria-label="Photo placeholder — workers or a Bangladesh scene">
+            <figure className="ab-photo ab-photo-portrait" aria-label="A Bangladesh scene">
               <div className="ab-photo-inner">
-                <div className="ab-photo-arc" aria-hidden="true"/>
+                <img
+                  className="ab-photo-img"
+                  src={ABOUT_BANGLADESH_IMAGE}
+                  alt="A scene representing Bangladesh"
+                  loading="lazy"
+                  decoding="async"
+                />
                 <span className="facility-tag">
                   <Icon size={12} color="#fff">{AbGlyph.globe}</Icon> Country
                 </span>
-                <AbArrowMotif className="ab-photo-motif"/>
-                <div className="facility-note">
-                  Photograph of workers or a Bangladesh scene
-                  <em>[Client to supply &middot; WebP / AVIF &middot; 4:5 &middot; lazy-loaded]</em>
-                </div>
               </div>
             </figure>
           </div>

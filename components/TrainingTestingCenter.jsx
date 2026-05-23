@@ -1,5 +1,6 @@
 "use client";
 import { Icon, Button, Eyebrow, SectionHead } from "./Primitives";
+import { FACILITY_IMAGES, FACILITY_HERO_IMAGE } from "./mediaAssets";
 
 /* ===============================================================
    Page 9 of 18 — Training & Testing Center
@@ -149,24 +150,28 @@ const PREDEP_STEPS = [
    Varied gradients within the navy / cyan / teal range.
 ---------------------------------------------------------------- */
 const PHOTOS = [
-  { tag: "Training floor", grad: "linear-gradient(135deg,#103A6B,#008CA8)",       sub: "Workers under supervised instruction" },
-  { tag: "Trade test",     grad: "linear-gradient(135deg,#15498A,#4DB6AC)",       sub: "Practical assessment in progress" },
-  { tag: "Tools",          grad: "linear-gradient(135deg,#0B2C54,#1565C0)",       sub: "Trade-specific tools and materials" },
-  { tag: "Workers",        grad: "linear-gradient(135deg,#1565C0,#4DB6AC)",       sub: "Pre-deployment cohort" },
-  { tag: "Records room",   grad: "linear-gradient(135deg,#0A2440,#00ACC1)",       sub: "Trade-test records kept on file" },
-  { tag: "Common area",    grad: "linear-gradient(135deg,#103A6B,#4DB6AC)",       sub: "Shared spaces at the centre" },
+  { tag: "Training floor", grad: "linear-gradient(135deg,#103A6B,#008CA8)",       sub: "Workers under supervised instruction", src: FACILITY_IMAGES["training floor"] },
+  { tag: "Trade test",     grad: "linear-gradient(135deg,#15498A,#4DB6AC)",       sub: "Practical assessment in progress",     src: FACILITY_IMAGES["trade test"] },
+  { tag: "Tools",          grad: "linear-gradient(135deg,#0B2C54,#1565C0)",       sub: "Trade-specific tools and materials",   src: FACILITY_IMAGES["tools"] },
+  { tag: "Workers",        grad: "linear-gradient(135deg,#1565C0,#4DB6AC)",       sub: "Pre-deployment cohort",                src: FACILITY_IMAGES["workers"] },
+  { tag: "Records room",   grad: "linear-gradient(135deg,#0A2440,#00ACC1)",       sub: "Trade-test records kept on file",      src: FACILITY_IMAGES["records room"] },
+  { tag: "Common area",    grad: "linear-gradient(135deg,#103A6B,#4DB6AC)",       sub: "Shared spaces at the centre",          src: FACILITY_IMAGES["common area"] },
 ];
 
-function TcPhotoTile({ tag, grad, sub, onNavigate }) {
+function TcPhotoTile({ tag, grad, sub, src, onNavigate }) {
   return (
     <a className="tc-photo"
        href="#/training-testing-gallery"
        onClick={(e) => { e.preventDefault(); onNavigate && onNavigate("training-gallery"); }}
        style={{ "--tc-grad": grad }}
        aria-label={`View photo — ${tag.toLowerCase()} — opens the Training & Testing Gallery`}>
-      <div className="tc-photo-inner" aria-hidden="true"/>
+      {src ? (
+        <img className="tc-photo-img" src={src} alt={`${tag} — ${sub}`} loading="lazy" decoding="async"/>
+      ) : (
+        <div className="tc-photo-inner" aria-hidden="true"/>
+      )}
       <span className="tc-photo-tag">{tag}</span>
-      <span className="tc-photo-note">[Client photograph]</span>
+      {!src && <span className="tc-photo-note">[Client photograph]</span>}
       <span className="tc-photo-view">View larger <Icon size={11}>{TcGlyph.arrowUpRight}</Icon></span>
     </a>
   );
@@ -223,16 +228,18 @@ function TrainingTestingCenter({ onNavigate }) {
               </div>
             </div>
 
-            <figure className="facility-frame" aria-label="Photo placeholder — training & testing facility">
+            <figure className="facility-frame" aria-label="Training & testing facility">
               <div className="facility-inner">
-                <div className="facility-arc" aria-hidden="true"/>
+                <img
+                  className="facility-img"
+                  src={FACILITY_HERO_IMAGE}
+                  alt="SNS Overseas training and testing facility"
+                  loading="eager"
+                  decoding="async"
+                />
                 <span className="facility-tag">
                   <Icon size={12} color="#fff">{TcGlyph.building}</Icon> Facility
                 </span>
-                <div className="facility-note">
-                  Photograph of the training &amp; testing facility
-                  <em>[Client to supply &middot; WebP / AVIF &middot; 4:3 &middot; preload]</em>
-                </div>
               </div>
             </figure>
           </div>

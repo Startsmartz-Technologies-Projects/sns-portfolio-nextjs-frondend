@@ -1,6 +1,7 @@
 "use client";
 import { useState as  useTgState, useEffect as  useTgEffect, useRef as  useTgRef, useCallback as  useTgCallback, useMemo as  useTgMemo } from "react";
 import { Icon, Button, Eyebrow, SectionHead } from "./Primitives";
+import { GALLERY_IMAGES, TRAINING_GALLERY_IMAGES } from "./mediaAssets";
 
 /* ================================================================
    Page 17 of 18 — Training & Testing Gallery
@@ -33,21 +34,18 @@ function TgPlaceholder({ children }) {
    canonical-facts §5.1. Aspect ratios mixed for masonry rhythm.
 ---------------------------------------------------------------- */
 const TG_PHOTOS = [
-  { id: 1,  cat: "Facility",             caption: "Centre exterior",                              ratio: "4 / 3" },
-  { id: 2,  cat: "Facility",             caption: "Training floor — wide shot",                   ratio: "3 / 2" },
-  { id: 3,  cat: "Training in progress", caption: "Plastering training",                          ratio: "3 / 4" },
-  { id: 4,  cat: "Training in progress", caption: "Tiling training",                              ratio: "1 / 1" },
-  { id: 5,  cat: "Trade tests",          caption: "Steel Reinforcement trade test",               ratio: "4 / 3" },
-  { id: 6,  cat: "Trade tests",          caption: "Plumbing & Pipefitting trade test",            ratio: "3 / 4" },
-  { id: 7,  cat: "Tools & materials",    caption: "Training tools",                               ratio: "1 / 1" },
-  { id: 8,  cat: "Training in progress", caption: "Electrical Wiring Installation training",      ratio: "4 / 3" },
-  { id: 9,  cat: "Trade tests",          caption: "Cladding Installation trade test",             ratio: "3 / 4" },
-  { id: 10, cat: "Records & results",    caption: "Records desk",                                 ratio: "1 / 1" },
-  { id: 11, cat: "Facility",             caption: "Workshop area",                                ratio: "4 / 3" },
-  { id: 12, cat: "Training in progress", caption: "Joinery training",                             ratio: "3 / 4" },
-  { id: 13, cat: "Trade tests",          caption: "Curtain Wall Installation trade test",         ratio: "3 / 2" },
-  { id: 14, cat: "Tools & materials",    caption: "Tools bench",                                  ratio: "4 / 3" },
-  { id: 15, cat: "Records & results",    caption: "Issuing trade-test record",                    ratio: "1 / 1" },
+  { id: 1,  cat: "Facility",             caption: "Centre exterior",                         ratio: "4 / 3", src: GALLERY_IMAGES[0] },
+  { id: 2,  cat: "Facility",             caption: "Training floor — wide shot",              ratio: "3 / 2", src: GALLERY_IMAGES[1] },
+  { id: 3,  cat: "Training in progress", caption: "Plastering training",                     ratio: "3 / 4", src: GALLERY_IMAGES[2] },
+  { id: 4,  cat: "Training in progress", caption: "Tiling training",                         ratio: "1 / 1", src: GALLERY_IMAGES[3] },
+  { id: 5,  cat: "Training in progress", caption: "Electrical Wiring Installation training", ratio: "4 / 3", src: GALLERY_IMAGES[4] },
+  { id: 6,  cat: "Facility",             caption: "Workshop area",                           ratio: "3 / 4", src: GALLERY_IMAGES[5] },
+  { id: 7,  cat: "Training in progress", caption: "Joinery training",                        ratio: "1 / 1", src: GALLERY_IMAGES[6] },
+  { id: 8,  cat: "Facility",             caption: "Centre interior",                         ratio: "4 / 3", src: GALLERY_IMAGES[7] },
+  { id: 9,  cat: "Trade tests",          caption: "Steel Reinforcement trade test",          ratio: "3 / 4", src: TRAINING_GALLERY_IMAGES[0] },
+  { id: 10, cat: "Trade tests",          caption: "Plumbing & Pipefitting trade test",       ratio: "1 / 1", src: TRAINING_GALLERY_IMAGES[1] },
+  { id: 11, cat: "Trade tests",          caption: "Cladding Installation trade test",        ratio: "4 / 3", src: TRAINING_GALLERY_IMAGES[2] },
+  { id: 12, cat: "Records & results",    caption: "Records desk",                            ratio: "3 / 2", src: TRAINING_GALLERY_IMAGES[3] },
 ];
 
 const TG_CATEGORIES = [
@@ -86,7 +84,18 @@ const TG_TILE_PRESETS = [
    <TgPhoto> — gradient tile content shared between grid tiles and
    the lightbox photo slot.
 ---------------------------------------------------------------- */
-function TgPhoto({ index, caption, big }) {
+function TgPhoto({ index, caption, big, src }) {
+  if (src) {
+    return (
+      <img
+        className={"og-photo-img" + (big ? " og-photo-img-big" : "")}
+        src={src}
+        alt={caption}
+        loading="lazy"
+        decoding="async"
+      />
+    );
+  }
   const preset = TG_TILE_PRESETS[index % TG_TILE_PRESETS.length];
   return (
     <span className="og-photo-ph" aria-hidden="true" style={{ background: preset.bg }}>
@@ -165,7 +174,7 @@ function TgPhotoTile({ photo, displayIndex, displayCount, totalIndex, onOpen }) 
       onClick={() => onOpen(totalIndex)}
       aria-label={`View photo — ${photo.caption} — ${displayIndex} of ${displayCount}`}
     >
-      <TgPhoto index={photo.id - 1} caption={photo.caption}/>
+      <TgPhoto index={photo.id - 1} caption={photo.caption} src={photo.src}/>
       <span className="og-tile-tag" aria-hidden="true">{photo.cat}</span>
       <span className="og-tile-overlay" aria-hidden="true">
         <span className="og-tile-view">
@@ -242,7 +251,7 @@ function TgLightbox({ index, photos, onClose, onPrev, onNext, loadState = "ready
 
         <div className="og-lb-stage">
           <figure className="og-lb-figure" style={{ aspectRatio: p.ratio }}>
-            <TgPhoto index={p.id - 1} caption={p.caption} big/>
+            <TgPhoto index={p.id - 1} caption={p.caption} src={p.src} big/>
             {loadState === "error" ? (
               <div className="og-lb-error" role="alert">
                 <div className="alert alert-error" style={{maxWidth:420}}>
@@ -360,11 +369,8 @@ function TrainingGallery({ state = "default", onNavigate }) {
   const [activeCat, setActiveCat] = useTgState("All");
   const [lbIndex, setLbIndex]     = useTgState(null);   // null = closed
 
-  // Initial state from URL hash — `:lightbox` opens viewer at photo #5
-  // (Steel Reinforcement trade test) so the design demo lands on a
-  // canonical-trade caption.
   useTgEffect(() => {
-    if (state === "lightbox") setLbIndex(4);
+    if (state === "lightbox") setLbIndex(0);
     else setLbIndex(null);
   }, [state]);
 
