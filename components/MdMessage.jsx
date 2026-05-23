@@ -41,14 +41,12 @@ function MdMessage({ onNavigate }) {
             <article className="md-portrait-card">
               <div className="md-portrait-photo">
                 <div className="md-portrait-arc" aria-hidden="true" />
-                <div className="md-avatar" aria-hidden="true">AZ</div>
-                <span className="sr-only">
-                  Portrait of Abu Zakir, Managing Director of SNS Overseas
-                  — photograph placeholder.
-                </span>
-                <span className="md-photo-note">
-                  Client portrait to be supplied
-                </span>
+                <img
+                  className="md-avatar md-avatar-img"
+                  src="https://res.cloudinary.com/dk4csiouq/image/upload/v1779520209/WhatsApp_Image_2026-05-23_at_1.06.30_PM_1_hhwmxx.jpg"
+                  alt="Portrait of Abu Zakir, Managing Director of SNS Overseas"
+                  loading="lazy"
+                />
               </div>
               <div className="md-arrow-strip" aria-hidden="true" />
               <div className="md-portrait-cap">

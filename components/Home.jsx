@@ -195,12 +195,15 @@ function HomeTrainingBand({ go }) {
         </div>
         <div className="facility-frame">
           <div className="facility-inner">
+            <img
+              className="facility-img"
+              src="https://res.cloudinary.com/dk4csiouq/image/upload/v1779518346/WhatsApp_Image_2026-05-23_at_12.21.00_PM_y82k1i.jpg"
+              alt="SNS Overseas training centre"
+              loading="lazy"
+              decoding="async"
+            />
             <div className="facility-arc" />
             <span className="facility-tag">Training centre</span>
-            <p className="facility-note">
-              Facility photography
-              <em>training bays / trade-test rigs</em>
-            </p>
           </div>
         </div>
       </div>

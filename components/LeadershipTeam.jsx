@@ -67,6 +67,7 @@ function LeadershipTeam({ onNavigate }) {
               initials="AZ"
               name="Abu Zakir"
               role="Managing Director"
+              photo="https://res.cloudinary.com/dk4csiouq/image/upload/v1779520209/WhatsApp_Image_2026-05-23_at_1.06.30_PM_1_hhwmxx.jpg"
               sub={
                 <>
                   Founder
@@ -82,14 +83,15 @@ function LeadershipTeam({ onNavigate }) {
               initials="AB"
               name="Lt. Colonel Abu Bashir, BSP (Rtd)"
               role="CEO"
+              photo="https://res.cloudinary.com/dk4csiouq/image/upload/v1779520213/WhatsApp_Image_2026-05-23_at_1.08.25_PM_1_v1cp5y.jpg"
               sub="Strategic leadership"
             />
-            <TeamCard
+            {/* <TeamCard
               initials="AR"
               name="Abdur Rashid"
               role="Director (Operations)"
               sub="Day-to-day operations"
-            />
+            /> */}
           </div>
         </div>
       </section>
@@ -156,7 +158,7 @@ function LeadershipTeam({ onNavigate }) {
       </section>
 
       {/* 5 — Wider team band */}
-      <section className="section" data-screen-label="04 Wider team">
+      {/* <section className="section" data-screen-label="04 Wider team">
         <div className="container">
           <SectionHead
             eyebrow="The wider team"
@@ -175,7 +177,7 @@ function LeadershipTeam({ onNavigate }) {
             <TeamCard initials="MT" name="Mithu" role="Office Assistant"/>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* 6 — Closing "what we do" card on surface-2 */}
       <section className="section section-alt" data-screen-label="05 Delivers">

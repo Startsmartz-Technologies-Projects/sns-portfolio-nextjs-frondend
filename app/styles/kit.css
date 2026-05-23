@@ -1443,6 +1443,13 @@ img { max-width: 100%; display: block; height: auto; }
   border: 3px solid #fff;
   box-shadow: 0 0 0 2px var(--navy-100);
 }
+/* Photo variant — same 84×84 circle, but cover-cropped from the source
+   image instead of showing initials on the gradient. */
+.team-avatar.team-avatar-img {
+  object-fit: cover;
+  object-position: center top;
+  background: var(--navy-100);
+}
 /* Offscreen text equivalent for the initials avatar */
 .sr-only {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
@@ -1771,6 +1778,21 @@ img { max-width: 100%; display: block; height: auto; }
   letter-spacing: .12em;
   text-transform: uppercase;
   color: rgba(255,255,255,.78);
+}
+/* Real portrait — fills the full 4:5 photo area, replacing the
+   gradient placeholder and initials avatar. */
+.md-avatar.md-avatar-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  border: 0;
+  box-shadow: none;
+  background: transparent;
+  object-fit: cover;
+  object-position: center top;
+  z-index: 1;
 }
 .md-arrow-strip {
   height: 14px;
