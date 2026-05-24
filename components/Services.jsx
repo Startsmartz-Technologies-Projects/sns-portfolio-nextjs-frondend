@@ -119,7 +119,7 @@ const SERVICES = [
   {
     glyph: SvcGlyph.passport,
     title: "Visa Processing",
-    body: "End-to-end visa processing — from documentation to consular submission.",
+    body: "End-to-end visa processing, from documentation to consular submission.",
   },
   {
     glyph: SvcGlyph.ministry,
@@ -169,7 +169,7 @@ const PARTNERS = [
   {
     glyph: SvcGlyph.stethoscope,
     title: "Care Rapid Point (CRP)",
-    sub: "Medical partner — Diagnostic & Consultation Centre",
+    sub: "Medical partner,  Diagnostic & Consultation Centre",
     link: { label: "View medical process", href: "#/medical-report", route: "medical-report" },
   },
   {
@@ -216,7 +216,7 @@ function Services({ onNavigate }) {
           <Eyebrow>What we do</Eyebrow>
           <h1 className="display-l">Services</h1>
           <p className="page-hero-lead">
-            Eight services covering the full recruitment journey — from
+            Eight services covering the full recruitment journey, from
             selecting the right worker to landing them in their new role.
           </p>
         </div>
@@ -285,7 +285,7 @@ function Services({ onNavigate }) {
               <Eyebrow>Why this matters</Eyebrow>
               <h3>All eight under one licensed roof</h3>
               <p>
-                Every service above runs through a single accountable team —
+                Every service above runs through a single accountable team,
                 a BMET-licensed agency (RL-2567), BAIRA member, with our own
                 in-house training and trade-testing centre. Fewer handoffs,
                 clearer documentation, and a worker who arrives prepared.
@@ -316,7 +316,7 @@ function Services({ onNavigate }) {
               Ready to start recruiting or applying?
             </h2>
             <p style={{color:"var(--navy-200)", marginTop:6, maxWidth:"52ch"}}>
-              Tell us whether you are hiring or looking for work — our team will take it from there.
+              Tell us whether you are hiring or looking for work, our team will take it from there.
             </p>
           </div>
           <div className="contact-band-ctas">

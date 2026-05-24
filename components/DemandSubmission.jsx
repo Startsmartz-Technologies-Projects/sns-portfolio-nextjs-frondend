@@ -534,7 +534,7 @@ function DemandSubmission({ state = "default", onNavigate }) {
               <h3 className="h3">We track every demand we receive</h3>
               <p>
                 Returning clients can reference past demands by company name in
-                the message field above — our team will match the file before
+                the message field above, our team will match the file before
                 we get back to you.
               </p>
             </div>

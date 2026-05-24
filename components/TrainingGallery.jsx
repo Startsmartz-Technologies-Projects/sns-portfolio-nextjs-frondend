@@ -392,7 +392,7 @@ function TrainingGallery({ state = "default", onNavigate }) {
           <Eyebrow>Inside our centre</Eyebrow>
           <h1 className="display-l">Training &amp; Testing Gallery</h1>
           <p className="page-hero-lead">
-            Our in-house training and trade-testing centre — workers learning,
+            Our in-house training and trade-testing centre  workers learning,
             trades being tested, results being recorded.
           </p>
         </div>

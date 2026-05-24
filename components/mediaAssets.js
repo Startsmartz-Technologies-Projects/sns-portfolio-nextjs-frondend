@@ -59,6 +59,7 @@ export const RESOURCE_IMAGES = {
   hotel:        `${CLOUD}/image/upload/v1779357516/Hotel_Industry_ap5qec.png`,
   drivers:      `${CLOUD}/image/upload/v1779357500/Drivers_c7uikh.png`,
   machinery:    `${CLOUD}/image/upload/v1779357487/Machinery_Operators_wktpiw.png`,
+  agriculture:   `${CLOUD}/image/upload/v1779535797/WhatsApp_Image_2026-05-23_at_5.24.43_PM_dvjjjs.jpg`,
 };
 
 /* ---- Module: Training & testing centre — Facility & Activity --- */
@@ -67,7 +68,7 @@ export const RESOURCE_IMAGES = {
 export const FACILITY_IMAGES = {
   "training floor": `${CLOUD}/image/upload/v1779517440/Training_Floor_meql1r.png`,
   "records room":   `${CLOUD}/image/upload/v1779517420/Record_room_kllgsj.png`,
-  "common area":    `${CLOUD}/image/upload/v1779517383/Common_area_zu9cae.jpg`,
+  "common area":    `${CLOUD}/image/upload/v1779516358/WhatsApp_Image_2026-05-23_at_11.54.33_AM_fk6dd7.jpg`,
   "workers":        `${CLOUD}/image/upload/v1779517382/Workers_ddhzag.jpg`,
   "trade test":     `${CLOUD}/image/upload/v1779517380/Trade_Test_yrvjwp.jpg`,
   "tools":          `${CLOUD}/image/upload/v1779517378/Tools_ivif6z.webp`,
@@ -75,7 +76,7 @@ export const FACILITY_IMAGES = {
 
 /* ---- Module: Training & testing centre — Hero image ------------- */
 export const FACILITY_HERO_IMAGE =
-  `${CLOUD}/image/upload/v1779518346/WhatsApp_Image_2026-05-23_at_12.21.00_PM_y82k1i.jpg`;
+  `${CLOUD}/image/upload/v1779535510/WhatsApp_Image_2026-05-23_at_5.24.11_PM_ulhcla.jpg`;
 
 /* ---- Module: About Bangladesh ---------------------------------- */
 export const ABOUT_BANGLADESH_IMAGE =

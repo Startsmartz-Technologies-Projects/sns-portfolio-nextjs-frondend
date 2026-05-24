@@ -62,7 +62,7 @@ function MdMessage({ onNavigate }) {
             <Eyebrow>Opening word</Eyebrow>
             <blockquote className="md-opening-quote">
               It gives us great pleasure to present SNS Overseas to our
-              valued clients, partners and well-wishers — and to share what
+              valued clients, partners and well wishers and to share what
               we stand for.
             </blockquote>
             <p className="md-opening-meta">
@@ -102,13 +102,13 @@ function MdMessage({ onNavigate }) {
           <p>
             To the workers who place their trust in us: our goal is to help
             skilled, semi-skilled and unskilled workers find better
-            opportunities abroad at a reasonable and affordable cost — so you
+            opportunities abroad at a reasonable and affordable cost so you
             can improve your lives and support your families with dignity.
           </p>
 
           <h4 className="md-subhead">To our employers</h4>
           <p>
-            To the employers we serve: we provide capable, well-prepared
+            To the employers we serve: we provide capable, well prepared
             workers and reliable service, with every placement carried out
             under the Overseas Employment and Migrants Act, 2013 and all
             applicable government rules.
@@ -147,7 +147,7 @@ function MdMessage({ onNavigate }) {
             <blockquote className="md-highlight-quote">
               <span className="md-quote-glyph" aria-hidden="true">“</span>
               We strongly believe that manpower recruitment is not just a
-              business — it is a responsibility.
+              business it is a responsibility.
             </blockquote>
             <div className="md-highlight-rule" aria-hidden="true" />
             <p className="md-highlight-attr">
@@ -196,7 +196,7 @@ function MdMessage({ onNavigate }) {
                 maxWidth: "52ch",
               }}
             >
-              Tell us whether you are hiring or looking for work — our team will take it from there.
+              Tell us whether you are hiring or looking for work our team will take it from there.
             </p>
           </div>
           <div className="contact-band-ctas">

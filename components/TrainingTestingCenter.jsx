@@ -82,7 +82,7 @@ const CAPABILITIES = [
   {
     glyph: TcGlyph.hardhat,
     title: "Skills training",
-    body: "Workers learn the practical skills required for the trade — tools, materials, safety, sequence — under supervised instruction.",
+    body: "Workers learn the practical skills required for the trade — tools, materials, safety, sequence under supervised instruction.",
   },
   {
     glyph: TcGlyph.clipboardCheck,
@@ -218,7 +218,7 @@ function TrainingTestingCenter({ onNavigate }) {
               <Eyebrow>Our facility</Eyebrow>
               <h1 className="display-l">Our own training and trade-testing centre</h1>
               <p className="feature-lead">
-                Workers train and trade-test under one roof — at our own
+                Workers train and trade-test under one roof at our own
                 facility, before deployment.
               </p>
               <div className="feature-band-ctas">
@@ -252,7 +252,7 @@ function TrainingTestingCenter({ onNavigate }) {
           <SectionHead
             eyebrow="What we run"
             title="Inside the centre"
-            lead="Skills training, trade testing and record-keeping — all under one roof."
+            lead="Skills training, trade testing and record-keeping, all under one roof."
           />
           <div className="svc-grid svc-grid-3">
             {CAPABILITIES.map((c, i) => <CapabilityCard key={i} {...c}/>)}

@@ -187,8 +187,8 @@ function LeadershipTeam({ onNavigate }) {
               <Eyebrow>The work</Eyebrow>
               <h3>What this team delivers</h3>
               <p>
-                A full overseas-recruitment service backed by an in-house
-                training and trade-testing centre — so workers arrive
+                A full overseas recruitment service backed by an in-house
+                training and trade testing centre so workers arrive
                 screened, trained and tested.
               </p>
             </div>
@@ -213,7 +213,7 @@ function LeadershipTeam({ onNavigate }) {
               Ready to work with us?
             </h2>
             <p style={{color:"var(--navy-200)", marginTop:6, maxWidth:"52ch"}}>
-              Tell us whether you are hiring or looking for work — our team will take it from there.
+              Tell us whether you are hiring or looking for work our team will take it from there.
             </p>
           </div>
           <div className="contact-band-ctas">

@@ -210,7 +210,7 @@ function Clients({ onNavigate }) {
           <Eyebrow>Who we work with</Eyebrow>
           <h1 className="display-l">Clients</h1>
           <p className="page-hero-lead">
-            Overseas employers we have served, grouped by destination —
+            Overseas employers we have served, grouped by destination,
             across Saudi Arabia, Kuwait, the UAE and Malaysia.
           </p>
         </div>

@@ -307,7 +307,7 @@ function Credentials({ onNavigate }) {
           <SectionHead
             eyebrow="Demand letter"
             title="A sample demand letter for employers"
-            lead="Shown on its own because it sits at the intersection of credential and what to expect — preview the format before you draft one."
+            lead="Shown on its own because it sits at the intersection of credential and what to expect   preview the format before you draft one."
           />
           <SampleDemandCard onNavigate={onNavigate} />
         </div>
@@ -345,7 +345,7 @@ function Credentials({ onNavigate }) {
           <SectionHead
             eyebrow="Verification"
             title="How to verify our recruiting licence"
-            lead="Three short steps. We've kept the wording simple — flag any clarifications you need and we'll refine before publish."
+            lead="Three short steps. We've kept the wording simple,  flag any clarifications you need and we'll refine before publish."
           />
           <div className="cr-verify-grid">
             <ol className="spec-list cr-verify-list">
@@ -398,7 +398,7 @@ function Credentials({ onNavigate }) {
               Verified, regulated, and ready to work with you
             </h2>
             <p style={{ color: "var(--navy-200)", marginTop: 6, maxWidth: "56ch" }}>
-              Tell us whether you are hiring or looking for work — our team will take it from there.
+              Tell us whether you are hiring or looking for work, our team will take it from there.
             </p>
           </div>
           <div className="contact-band-ctas">

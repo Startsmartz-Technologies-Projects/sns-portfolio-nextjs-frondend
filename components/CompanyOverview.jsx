@@ -53,7 +53,7 @@ function CompanyOverview({ tweaks = {}, onNavigate }) {
           <p>
             What sets SNS Overseas apart is that selection, skills training
             and trade testing all happen in-house, at our own centre. Workers
-            are not simply forwarded — they are prepared, assessed and
+            are not simply forwarded, they are prepared, assessed and
             certified before they are placed before an employer.
           </p>
           <p>
@@ -134,7 +134,7 @@ function CompanyOverview({ tweaks = {}, onNavigate }) {
           <blockquote className="mv-quote mv-quote-l">
             To ethically recruit and place skilled Bangladeshi workers in
             reputable overseas employment, upholding their rights, dignity and
-            well-being at every step of the journey — from registration to
+            well-being at every step of the journey, from registration to
             arrival at the desired country.
           </blockquote>
         </div>
@@ -155,7 +155,7 @@ function CompanyOverview({ tweaks = {}, onNavigate }) {
               decoding="async"
             />
           </div>
-          <blockquote className="mv-quote mv-quote-r">
+          <blockquote className="mv-quote mv-quote-r ">
             To become a leading and most trusted overseas recruitment agency
             in Bangladesh, recognised for our integrity, compliance and
             contribution to the nation&apos;s workforce development and remittance
@@ -171,7 +171,7 @@ function CompanyOverview({ tweaks = {}, onNavigate }) {
             <span className="eyebrow" style={{color:"#7fd9e3"}}>Get in touch</span>
             <h2 className="h2" style={{color:"#fff", marginTop:6}}>Ready to work with us?</h2>
             <p style={{color:"var(--navy-200)", marginTop:6, maxWidth:"52ch"}}>
-              Tell us whether you are hiring or looking for work — our team
+              Tell us whether you are hiring or looking for work our team
               will take it from there.
             </p>
           </div>

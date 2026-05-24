@@ -431,7 +431,7 @@ function WorkerRegistration({ state = "default", onNavigate }) {
               <Eyebrow>Through an agent?</Eyebrow>
               <h3 className="h3">If you found us through a local agent</h3>
               <p>
-                You can still register here yourself — it does not affect your
+                You can still register here yourself,  it does not affect your
                 application. Agents who source candidates for SNS Overseas can
                 also register on their own page.
               </p>

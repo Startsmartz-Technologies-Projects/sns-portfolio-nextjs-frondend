@@ -698,7 +698,7 @@ img { max-width: 100%; display: block; height: auto; }
 
 .co-prose { max-width: 720px; }
 .co-prose .section-head { margin-bottom: 24px; }
-.co-prose p { margin: 0 0 16px; font: var(--body-m); color: var(--ink-700); max-width: 70ch; }
+.co-prose p { margin: 0 0 16px; font: var(--body-m); color: var(--ink-700); text-align: justify; }
 .co-prose p.body-l { font: var(--body-l); color: var(--ink-900); }
 .co-prose p strong { color: var(--navy-800); font-weight: 700; }
 
@@ -814,10 +814,10 @@ img { max-width: 100%; display: block; height: auto; }
   padding: 4px 0;
   position: relative;
   text-wrap: pretty;
+  text-align: justify;
 }
 .mv-quote-l { padding-left: 24px; border-left: 4px solid transparent; background-image: var(--grad-arrow); background-repeat: no-repeat; background-size: 4px 100%; background-position: left center; background-clip: border-box; }
-.mv-quote-r { padding-right: 24px; text-align: right; margin-left: auto; border-right: 4px solid transparent; background-image: var(--grad-arrow); background-repeat: no-repeat; background-size: 4px 100%; background-position: right center; }
-
+.mv-quote-r { padding-right: 24px; margin-left: auto; border-right: 4px solid transparent; background-image: var(--grad-arrow); background-repeat: no-repeat; background-size: 4px 100%; background-position: right center; }
 @media (max-width: 880px) {
   .mv-row, .mv-row.mv-row-rev { grid-template-columns: 1fr; gap: 22px; }
   .mv-row.mv-row-rev .mv-side-right { order: 0; }
@@ -2025,6 +2025,7 @@ img { max-width: 100%; display: block; height: auto; }
   grid-template-columns: 3fr 2fr;
   gap: 56px;
   align-items: start;
+  text-align: justify;
 }
 @media (max-width: 980px) {
   .ab-glance-grid { grid-template-columns: 1fr; gap: 28px; }
@@ -2071,6 +2072,15 @@ img { max-width: 100%; display: block; height: auto; }
   pointer-events: none;
 }
 
+.facility-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: inherit;
+}
 /* Decorative ascending-arrow motif placed bottom-left of the photo
    block, at low opacity (spec §7.3) */
 .ab-arrow-motif {

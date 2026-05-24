@@ -35,9 +35,9 @@ function OgPlaceholder({ children }) {
 /* Three real client-supplied office photos (Cloudinary, see
    mediaAssets.js — OFFICE_GALLERY_IMAGES). */
 const OG_PHOTOS = [
-  { id: 1, cat: "Meeting & training rooms", caption: "Interview area",     ratio: "1 / 1", src: OFFICE_GALLERY_IMAGES[0] },
-  { id: 2, cat: "Team at work",             caption: "Documentation desk", ratio: "4 / 3", src: OFFICE_GALLERY_IMAGES[1] },
-  { id: 3, cat: "Reception",                caption: "Visitor seating",    ratio: "3 / 4", src: OFFICE_GALLERY_IMAGES[2] },
+  { id: 1, cat: "Meeting rooms", caption: "Interview area",     ratio: "1 / 1", src: OFFICE_GALLERY_IMAGES[1] },
+  { id: 2, cat: "Team at work",             caption: "Documentation desk", ratio: "4 / 3", src: OFFICE_GALLERY_IMAGES[2] },
+  { id: 3, cat: "Reception",                caption: "Visitor seating",    ratio: "3 / 4", src: OFFICE_GALLERY_IMAGES[0] },
 ];
 
 const OG_CATEGORIES = [
@@ -318,7 +318,7 @@ function OfficeGallery({ state = "default", onNavigate }) {
           <Eyebrow>Inside our office</Eyebrow>
           <h1 className="display-l">Office Gallery</h1>
           <p className="page-hero-lead">
-            A look inside our Dhaka office — the building, reception, meeting
+            A look inside our Dhaka office,  the building, reception, meeting
             rooms, and our team at work.
           </p>
         </div>
@@ -390,7 +390,7 @@ function OfficeGallery({ state = "default", onNavigate }) {
               Come and meet us
             </h2>
             <p style={{color:"var(--navy-200)", marginTop:8, maxWidth:"56ch"}}>
-              Drop by our Dhaka office, or send us a note — whichever is
+              Drop by our Dhaka office, or send us a note whichever is
               easier for you.
             </p>
           </div>

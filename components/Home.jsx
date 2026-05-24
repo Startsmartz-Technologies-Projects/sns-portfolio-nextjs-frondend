@@ -42,7 +42,7 @@ function HomeHero({ onApply, onHire }) {
           </h1>
           <p className="hero-lead">
             A BMET-licensed recruiting agency based in Dhaka, SNS Overseas
-            selects, trains and trade-tests Bangladeshi workers — then handles
+            selects, trains and trade-tests Bangladeshi workers then handles
             every step through to deployment with overseas employers across
             the Gulf and Malaysia.
           </p>
@@ -175,7 +175,7 @@ function HomeTrainingBand({ go }) {
       <div className="container feature-band-grid">
         <div>
           <Eyebrow>Training & Testing centre</Eyebrow>
-          <h2 className="h2">An in-house facility — not a referral.</h2>
+          <h2 className="h2">An in-house facility, not a referral.</h2>
           <p className="feature-lead">
             Candidates train and trade-test under one roof before they leave
             Bangladesh, so employers receive deployment-ready workers with
@@ -197,7 +197,7 @@ function HomeTrainingBand({ go }) {
           <div className="facility-inner">
             <img
               className="facility-img"
-              src="https://res.cloudinary.com/dk4csiouq/image/upload/v1779518346/WhatsApp_Image_2026-05-23_at_12.21.00_PM_y82k1i.jpg"
+              src="https://res.cloudinary.com/dk4csiouq/image/upload/v1779535510/WhatsApp_Image_2026-05-23_at_5.24.11_PM_ulhcla.jpg"
               alt="SNS Overseas training centre"
               loading="lazy"
               decoding="async"
@@ -256,13 +256,13 @@ function HomeEmployerBlock({ go }) {
           <p>
             Every worker we put forward is sourced, screened and prepared
             in-house. Our own training and trade-testing centre means
-            candidates arrive with documented skills — so you receive
+            candidates arrive with documented skills, so you receive
             deployment-ready workers matched to your demand letter.
           </p>
           <p>
             As a BMET-licensed agency (RL-2567) and BAIRA member, we complete
             medical, visa and ministry formalities under the Overseas
-            Employment and Migrants Act, 2013 — giving you a single,
+            Employment and Migrants Act, 2013;  giving you a single,
             accountable partner from demand letter to arrival.
           </p>
           <div className="emp-actions">
@@ -315,7 +315,7 @@ function HomeClients({ go }) {
         <SectionHead
           eyebrow="Selected clients we have served"
           title="Employers across the Gulf and Malaysia."
-          lead="A selection of the overseas employers we have recruited for — see the full list on the Clients page."
+          lead="A selection of the overseas employers we have recruited for, see the full list on the Clients page."
           align="center"
         />
         <div className="clients-grid">

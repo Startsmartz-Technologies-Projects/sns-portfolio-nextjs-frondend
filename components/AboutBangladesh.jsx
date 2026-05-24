@@ -16,58 +16,58 @@ import { ABOUT_BANGLADESH_IMAGE } from "./mediaAssets";
 const AbGlyph = {
   arrowRight: (
     <>
-      <path d="M5 12h14M13 5l7 7-7 7"/>
+      <path d="M5 12h14M13 5l7 7-7 7" />
     </>
   ),
   arrowUpRight: (
     <>
-      <path d="M7 17 17 7M7 7h10v10"/>
+      <path d="M7 17 17 7M7 7h10v10" />
     </>
   ),
   graduationCap: (
     <>
-      <path d="M12 3 1 9l11 6 9-4.9V17"/>
-      <path d="M5 13v5l7 3 7-3v-5"/>
+      <path d="M12 3 1 9l11 6 9-4.9V17" />
+      <path d="M5 13v5l7 3 7-3v-5" />
     </>
   ),
   globe: (
     <>
-      <circle cx="12" cy="12" r="9"/>
-      <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" />
     </>
   ),
   flag: (
     <>
-      <path d="M4 21V4"/>
-      <path d="M4 4h12l-2 4 2 4H4"/>
+      <path d="M4 21V4" />
+      <path d="M4 4h12l-2 4 2 4H4" />
     </>
   ),
   users: (
     <>
-      <circle cx="9" cy="8" r="3"/>
-      <circle cx="17" cy="9" r="2.4"/>
-      <path d="M2 21v-1a6 6 0 0 1 12 0v1M15 21v-1a5 5 0 0 1 7 0"/>
+      <circle cx="9" cy="8" r="3" />
+      <circle cx="17" cy="9" r="2.4" />
+      <path d="M2 21v-1a6 6 0 0 1 12 0v1M15 21v-1a5 5 0 0 1 7 0" />
     </>
   ),
   school: (
     <>
-      <path d="M4 21V10l8-5 8 5v11"/>
-      <path d="M9 21v-6h6v6"/>
-      <path d="M2 10h20"/>
+      <path d="M4 21V10l8-5 8 5v11" />
+      <path d="M9 21v-6h6v6" />
+      <path d="M2 10h20" />
     </>
   ),
   tools: (
     <>
-      <path d="M14.7 6.3a4 4 0 1 0 5 5L21 13l-7 7a2 2 0 0 1-3 0l-3-3 8-8z"/>
-      <path d="m4 4 5 5"/>
+      <path d="M14.7 6.3a4 4 0 1 0 5 5L21 13l-7 7a2 2 0 0 1-3 0l-3-3 8-8z" />
+      <path d="m4 4 5 5" />
     </>
   ),
   certificate: (
     <>
-      <rect x="3" y="4" width="18" height="13" rx="2"/>
-      <path d="M7 9h10M7 12h6"/>
-      <circle cx="16" cy="18" r="2.4"/>
-      <path d="m14.5 19.5-1 3 2.5-1 2.5 1-1-3"/>
+      <rect x="3" y="4" width="18" height="13" rx="2" />
+      <path d="M7 9h10M7 12h6" />
+      <circle cx="16" cy="18" r="2.4" />
+      <path d="m14.5 19.5-1 3 2.5-1 2.5 1-1-3" />
     </>
   ),
 };
@@ -88,13 +88,13 @@ function AboutBangladesh({ onNavigate }) {
     <>
       {/* 2 — Compact page hero (~48 / 56 padding) */}
       <section className="page-hero ab-hero" data-screen-label="01 Hero">
-        <div className="hero-arc small" aria-hidden="true"/>
+        <div className="hero-arc small" aria-hidden="true" />
         <div className="container ab-hero-inner">
           <Eyebrow>Context for employers</Eyebrow>
           <h1 className="display-l ab-hero-h">About Bangladesh</h1>
           <p className="page-hero-lead">
-            For hiring companies abroad — a short orientation to Bangladesh
-            as a large, well-established and regulated source of overseas
+            For hiring companies abroad  a short orientation to Bangladesh
+            as a large, well established and regulated source of overseas
             manpower.
           </p>
         </div>
@@ -106,31 +106,57 @@ function AboutBangladesh({ onNavigate }) {
           <SectionHead
             eyebrow="The country at a glance"
             title="Bangladesh at a glance"
-            lead="A short orientation for hiring companies new to the country — its workforce, its training system, and the ministry framework that governs labour export."
+            lead="A short orientation for hiring companies new to the country its workforce, its training system, and the ministry framework that governs labour export."
           />
           <div className="ab-glance-grid">
             <div className="ab-glance-prose">
               <p>
-                Bangladesh is a vibrant South Asian country known for its
-                natural beauty &mdash; green countryside, flowing rivers, the
-                Sundarbans (the world&rsquo;s largest mangrove forest) and the
-                long coastline of Cox&rsquo;s Bazar. Centuries of history have
-                given it a strong national identity built on tradition,
-                language and resilience.
+                Bangladesh is a vibrant South Asian country known for its natural
+                beauty, including its green countryside, flowing rivers, the
+                world&apos;s largest mangrove forest, the Sundarbans, and the long
+                scenic coastline of Cox&apos;s Bazar. The country also has a rich
+                cultural heritage shaped by centuries of history, which has created
+                a strong national identity based on tradition, language and
+                resilience.
               </p>
+
               <p>
-                The people of Bangladesh are widely recognised for their
-                dedication, adaptability and strong work ethic. This has built
-                a dynamic workforce that contributes to industries both within
-                the country and abroad, and has made the nation an established
-                source of overseas labour.
+                The people of Bangladesh are widely recognised for their dedication,
+                adaptability and strong work ethic. This has helped build a dynamic
+                workforce that contributes to various industries both within the
+                country and abroad.
               </p>
+
               <p>
-                Emerging from a challenging past, the country has achieved
-                steady economic growth, improved infrastructure and notable
-                human development &mdash; and today stands as a reliable source
-                of skilled, semi-skilled and unskilled manpower for global
-                employers.
+                Bangladesh has made significant progress in youth development and
+                skills training through institutions such as the Bangladesh
+                Technical Education Board (BTEB), the Bureau of Manpower Employment
+                and Training (BMET), as well as many public and private polytechnic
+                institutes and vocational training centres. These institutions
+                provide hands-on training in fields like construction, electrical
+                work, IT, healthcare support and manufacturing, aligning with
+                international standards and labour market requirements.
+              </p>
+
+              <p>
+                Specialised programs, including overseas employment training,
+                language preparation and certification courses, are continuously
+                enhancing the global employability of Bangladeshi workers.
+              </p>
+
+              <p>
+                Emerging from a challenging past, the country has achieved steady
+                economic growth, improved infrastructure and notable human
+                development. Today, Bangladesh stands as a reliable source of
+                skilled, semi-skilled and unskilled manpower, ready to meet global
+                demands with professionalism and efficiency.
+              </p>
+
+              <p>
+                With a young population, an expanding technical education network
+                and strong government support for workforce export, the nation holds
+                great promise as a strategic partner for international recruitment
+                and long-term human resource solutions.
               </p>
             </div>
 
@@ -162,10 +188,10 @@ function AboutBangladesh({ onNavigate }) {
           />
 
           <div className="trust-strip fact-strip" role="list" aria-label="Bangladesh in figures">
-            <FactItem glyph={AbGlyph.users}        figure="175.4M"       sub="National population (2026)"/>
-            <FactItem glyph={AbGlyph.graduationCap} figure="US$2,911"    sub="GDP per capita"/>
-            <FactItem glyph={AbGlyph.globe}         figure="143,998 km²" sub="Total land area"/>
-            <FactItem glyph={AbGlyph.flag}          figure="Bangla"      sub="Official language · English widely spoken"/>
+            <FactItem glyph={AbGlyph.users} figure="175.4M" sub="National population (2026)" />
+            <FactItem glyph={AbGlyph.graduationCap} figure="US$2,911" sub="GDP per capita" />
+            <FactItem glyph={AbGlyph.globe} figure="143,998 km²" sub="Total land area" />
+            <FactItem glyph={AbGlyph.flag} figure="Bangla" sub="Official language · English widely spoken" />
           </div>
 
           <p className="ab-facts-foot">
@@ -196,20 +222,20 @@ function AboutBangladesh({ onNavigate }) {
             />
             <TvetCard
               glyph={AbGlyph.tools}
-              title="Trade-skill training programmes"
+              title="Trade skill training programmes"
               body={<>
-                Vocational training centres provide hands-on training in
+                Vocational training centres provide hands on training in
                 fields such as construction, electrical work, IT, healthcare
-                support and manufacturing — aligned with international
-                standards and labour-market requirements.
+                support and manufacturing aligned with international
+                standards and labour market requirements.
               </>}
             />
             <TvetCard
               glyph={AbGlyph.certificate}
               title="Trade testing &amp; certification"
               body={<>
-                Specialised programmes — including overseas-employment
-                training, language preparation and certification courses —
+                Specialised programmes  including overseas employment
+                training, language preparation and certification courses
                 continually improve the global employability of Bangladeshi
                 workers.
               </>}
@@ -231,22 +257,32 @@ function AboutBangladesh({ onNavigate }) {
           <SectionHead
             eyebrow="Regulation &amp; readiness"
             title="Built for labour export"
-            lead="A long-established labour-export tradition, backed by a clear regulatory framework."
+            lead="A long established labour export tradition, backed by a clear regulatory framework."
           />
 
           <div className="ab-readiness-grid">
             <ul className="spec-list ab-readiness-list">
               {[
-                { t: "Overseas Employment and Migrants Act, 2013",
-                  d: "Labour migration is governed by a dedicated national law that sets the rules for recruitment and protects workers' rights." },
-                { t: "Regulated by BMET",
-                  d: "The Bureau of Manpower, Employment and Training licenses recruiting agencies and oversees the deployment of workers abroad." },
-                { t: "Industry association — BAIRA",
-                  d: "Agencies are organised under the Bangladesh Association of International Recruiting Agencies, which upholds professional standards." },
-                { t: "Ministry formalities and clearance",
-                  d: "Every worker is processed through formal Government clearance before departure, with documentation checked at each stage." },
-                { t: "A large, young workforce",
-                  d: "An expanding technical-education network makes the country a dependable source of skilled, semi-skilled and unskilled manpower." },
+                {
+                  t: "Overseas Employment and Migrants Act, 2013",
+                  d: "Labour migration is governed by a dedicated national law that sets the rules for recruitment and protects workers' rights."
+                },
+                {
+                  t: "Regulated by BMET",
+                  d: "The Bureau of Manpower, Employment and Training licenses recruiting agencies and oversees the deployment of workers abroad."
+                },
+                {
+                  t: "Industry association BAIRA",
+                  d: "Agencies are organised under the Bangladesh Association of International Recruiting Agencies, which upholds professional standards."
+                },
+                {
+                  t: "Ministry formalities and clearance",
+                  d: "Every worker is processed through formal Government clearance before departure, with documentation checked at each stage."
+                },
+                {
+                  t: "A large, young workforce",
+                  d: "An expanding technical education network makes the country a dependable source of skilled, semi skilled and unskilled manpower."
+                },
               ].map((p, n) => (
                 <li key={n}>
                   <span className="spec-marker" aria-hidden="true">
@@ -262,17 +298,25 @@ function AboutBangladesh({ onNavigate }) {
               ))}
             </ul>
 
-            <figure className="ab-photo ab-photo-tall" aria-label="Photo placeholder — facility or process">
+            <figure
+              className="ab-photo ab-photo-tall"
+              aria-label="Bangladesh regulation and readiness"
+            >
               <div className="ab-photo-inner">
-                <div className="ab-photo-arc" aria-hidden="true"/>
+                <img
+                  src="https://res.cloudinary.com/dk4csiouq/image/upload/v1779535720/WhatsApp_Image_2026-05-23_at_5.26.46_PM_ao9s7h.jpg"
+                  alt="Bangladesh regulation and readiness"
+                  className="ab-photo-img"
+                  loading="lazy"
+                />
+
+                <div className="ab-photo-arc" aria-hidden="true" />
+
                 <span className="facility-tag">
-                  <Icon name="building" size={12} color="#fff"/> Facility
+                  <Icon name="building" size={12} color="#fff" /> Regulation & Readiness
                 </span>
-                <AbArrowMotif className="ab-photo-motif"/>
-                <div className="facility-note">
-                  Photograph of a facility, process or BMET-clearance scene
-                  <em>[Client to supply &middot; WebP / AVIF &middot; 3:4 &middot; lazy-loaded]</em>
-                </div>
+
+                <AbArrowMotif className="ab-photo-motif" />
               </div>
             </figure>
           </div>
@@ -296,7 +340,7 @@ function AboutBangladesh({ onNavigate }) {
               <h3>From country to agency</h3>
               <p>
                 You&rsquo;ve seen the country and the system. Here&rsquo;s how
-                SNS Overseas turns that context into a placement &mdash; the
+                SNS Overseas turns that context into a placement the
                 services we deliver and the employers we already work with.
               </p>
             </div>
@@ -316,12 +360,12 @@ function AboutBangladesh({ onNavigate }) {
       <section className="section contact-band ab-closing" data-screen-label="07 Enquiry">
         <div className="container contact-band-inner">
           <div>
-            <span className="eyebrow" style={{color:"#7fd9e3"}}>Get in touch</span>
-            <h2 className="h2" style={{color:"#fff", marginTop:6, maxWidth:"22ch"}}>
+            <span className="eyebrow" style={{ color: "#7fd9e3" }}>Get in touch</span>
+            <h2 className="h2" style={{ color: "#fff", marginTop: 6, maxWidth: "22ch" }}>
               Recruit through a licensed Bangladeshi agency
             </h2>
-            <p style={{color:"var(--navy-200)", marginTop:8, maxWidth:"56ch"}}>
-              Recruit skilled, trained and trade-tested workers through a
+            <p style={{ color: "var(--navy-200)", marginTop: 8, maxWidth: "56ch" }}>
+              Recruit skilled, trained and trade tested workers through a
               fully licensed Bangladeshi agency.
             </p>
           </div>
@@ -374,13 +418,13 @@ function AbArrowMotif({ className }) {
       <svg viewBox="0 0 40 40">
         <defs>
           <linearGradient id="ab-amg" x1="0" y1="1" x2="1" y2="0">
-            <stop offset="0%" stopColor="#00E676"/>
-            <stop offset="100%" stopColor="#00BCD4"/>
+            <stop offset="0%" stopColor="#00E676" />
+            <stop offset="100%" stopColor="#00BCD4" />
           </linearGradient>
         </defs>
         <path d="M8 32 L26 14 M14 14 H26 V26"
           stroke="url(#ab-amg)" strokeWidth="5" fill="none"
-          strokeLinecap="round" strokeLinejoin="round"/>
+          strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     </div>
   );
